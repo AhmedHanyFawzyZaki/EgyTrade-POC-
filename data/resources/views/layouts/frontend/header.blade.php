@@ -20,12 +20,13 @@
             <!--<li role="presentation"><a href="#" id="register-btn" data-toggle="modal" data-target="#registerModal">{{trans('messages.Register')}}</a></li>-->
             <li role="presentation" class="pull-right"><a href="#" id="login-btn" data-toggle="modal" data-target="#loginModal"><i class="fa fa-lock"></i> {{trans('messages.Login')}}</a></li>
             @else
+            <li role="presentation" class=""><a href="{{route('declaration.applicationState')}}"><i class="fa fa-magnify"></i> {{trans('messages.Applications State')}}</a></li>
             <li class="dropdown"> 
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-th-large"></i> {{trans('messages.Provided Services')}} <span class="caret"></span>
                 </a> 
                 <ul class="dropdown-menu"> 
                     <li><a href="{{route('declaration.index')}}">{{trans('messages.New ECD')}}</a></li> 
-                    <li><a href="#">{{trans('messages.Continue Shipping')}}</a></li>
+                    <li><a href="{{route('ecdShipping.applicationState')}}">{{trans('messages.Continue Shipping')}}</a></li>
                 </ul> 
             </li>
             <!-- User Account: style can be found in dropdown.less -->

@@ -42,19 +42,29 @@ if (in_array($locale, ['ar']))
         <script src="{{ url('/') }}/files/js/select2.js"></script>
 
         <!-- Date Picker -->
-        <link href="{{ url('/') }}/files/js/admin/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-        <script src="{{ url('/') }}/files/js/admin/datepicker/bootstrap-datepicker.js"></script>
+        <link href="{{ url('/') }}/files/js/bsdatetimepicker/datetimepicker.css" rel="stylesheet" type="text/css" />
+        <script src="{{ url('/') }}/files/js/bsdatetimepicker/moment.js"></script>
+        <script src="{{ url('/') }}/files/js/bsdatetimepicker/datetimepicker.js"></script>
 
         <script>
         $(document).ready(function () {
             $('.select2').select2({
                 dir: "<?= $rtl ? 'rtl' : 'ltr' ?>"
             });
-            $('.datepick').datepicker({
+            /*$('.datepick').datepicker({
                 rtl: true,
                 language: 'ar-AR',
                 autoclose: true,
                 format: 'yyyy-mm-dd',
+            });*/
+            $('.datetimepickmin').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:00',
+                showClose: true,
+                minDate: moment().add(48, 'hours'),
+                icons: {
+                    previous: "<?= $rtl ? 'glyphicon glyphicon-chevron-right' : 'glyphicon glyphicon-chevron-left' ?>",
+                    next: "<?= $rtl ? 'glyphicon glyphicon-chevron-left' : 'glyphicon glyphicon-chevron-right' ?>"
+                }
             });
         });
         </script>

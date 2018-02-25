@@ -195,4 +195,100 @@ return [
     'Please select hs code' => 'Please select hs code',
     'Quantity' => 'Quantity',
     'Unit Price' => 'Unit Price',
+    /**
+     * step 4
+     */
+    'Inspection Details' => 'Inspection Details',
+    'Inspection Address' => 'Inspection Address',
+    'Inspection Date' => 'Inspection Date',
+    'Inspection Location' => 'Inspection Location',
+    'Please select inspection location' => 'Please select inspection location',
+    /**
+     * step 5
+     */
+    'Origin Details' => 'Origin Details',
+    'Country of origin' => 'Country of origin',
+    'Please select country of origin' => 'Please select country of origin',
+    /**
+     * step 6
+     */
+    'Ecd Attachment' => 'Ecd Attachment',
+    'Agreement of export' => 'Agreement of export',
+    'Invoice' => 'Invoice',
+    'ECD application has been submitted successfully and your "DID Number" is: ' => 'ECD application has been submitted successfully and your "DID Number" is: :did_num',
+    /**
+     * Application State
+     */
+    'Application State' => 'Application State',
+    'Applications State' => 'Applications State',
+    'Application (DID or SAD)' => 'Application (DID or SAD)',
+    'Search' => 'Search',
+    'Wrong (DID or SAD) number' => 'Wrong (DID or SAD) number',
+    /**
+     * ECD Shipping controller
+     */
+    'Application DID Number' => 'Application DID Number',
+    'Continue ECD Shipping' => 'Continue ECD Shipping',
+    'Wrong (DID) number' => 'Wrong (DID) number',
+    /**
+     * step 7
+     */
+    'Continue Shipping Details' => 'Continue Shipping Details',
+    'Containers Details' => 'Containers Details',
+    'Container Owner' => 'Container Owner',
+    'Please select container owner' => 'Please select container owner',
+    'Container Number' => 'Container Number',
+    'Container Type' => 'Container Type',
+    'Please select container type' => 'Please select container type',
+    'Please select container capacity' => 'Please select container capacity',
+    'Container Capacity' => 'Container Capacity',
+    'Add More Container' => 'Add More Container',
+    /**
+     * step 8
+     */
+    'Transportation Details' => 'Transportation Details',
+    'Car License Number' => 'Car License Number',
+    'Driver License' => 'Driver License',
+    'Driver Name' => 'Driver Name',
+    'Car Total Weight' => 'Car Total Weight',
+    'Car Net Weight' => 'Car Net Weight',
+    /**
+     * step 9
+     */
+    'Freight Details' => 'Freight Details',
+    'Bill of lading number' => 'Bill of lading number',
+    'Vessel Name' => 'Vessel Name',
+    'Call Sign' => 'Call Sign',
+    'IMO Number' => 'IMO Number',
+    'Total Weight' => 'Total Weight',
+    'Net Weight' => 'Net Weight',
+    'Name Of Frieght Line' => 'Name Of Frieght Line',
+    'Please select freight line' => 'Please select freight line',
+    'Please select shipping port' => 'Please select shipping port',
+    'Shipping Port' => 'Shipping Port',
+    'Please select final destination port' => 'Please select final destination port',
+    'Final Destination Port' => 'Final Destination Port',
+    'Expected Arrival Date' => 'Expected Arrival Date',
+    'Date Of Shippment' => 'Date Of Shippment',
+    'Trip Number' => 'Trip Number',
+    'Frieght Forwarder Name' => 'Frieght Forwarder Name',
+    'Frieght Forwarder Address' => 'Frieght Forwarder Address',
+    'Frieght Agent Name' => 'Frieght Agent Name',
+    'Frieght Agent Address' => 'Frieght Agent Address',
+    /**
+     * step 10
+     */
+    'Packaging Details' => 'Packaging Details',
+    'Pack Weight' => 'Pack Weight',
+    'Pack Type' => 'Pack Type',
+    'Please select pack type' => 'Please select pack type',
+    'Add More Pack' => 'Add More Pack',
+    /**
+     * step 11
+     */
+    'Shipping Attachment' => 'Shipping Attachment',
+    'Package Statement' => 'Package Statement',
+    'Initial Freight Permission' => 'Initial Freight Permission',
+    'ECD Application has been completed successfully and your "SAD Number" is: ' => 'ECD Application has been completed successfully and your "SAD Number" is: :sad_num',
+    'Finish' => 'Finish',
 ];

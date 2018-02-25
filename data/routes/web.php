@@ -26,7 +26,7 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
         'uses' => 'HomeController@contact',
         'as' => 'home.contact'
     ]);
-    
+
     /**
      * declaration controller
      */
@@ -41,7 +41,7 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
         'uses' => 'DeclarationController@indexPost',
         'as' => 'declaration.indexPost'
     ]);
-    
+
     /**
      * step 2
      */
@@ -53,7 +53,7 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
         'uses' => 'DeclarationController@senderDetailsPost',
         'as' => 'declaration.senderDetailsPost'
     ]);
-    
+
     /**
      * step 3
      */
@@ -65,9 +65,9 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
         'uses' => 'DeclarationController@consignmentDetailsPost',
         'as' => 'declaration.consignmentDetailsPost'
     ]);
-    
+
     /**
-     * step 3
+     * step 4
      */
     Route::get('/declaration/inspectionDetails/{id}', [
         'uses' => 'DeclarationController@inspectionDetails',
@@ -76,6 +76,118 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
     Route::post('/declaration/inspectionDetails/{id}', [
         'uses' => 'DeclarationController@inspectionDetailsPost',
         'as' => 'declaration.inspectionDetailsPost'
+    ]);
+
+    /**
+     * step 5
+     */
+    Route::get('/declaration/originDetails/{id}', [
+        'uses' => 'DeclarationController@originDetails',
+        'as' => 'declaration.originDetails'
+    ]);
+    Route::post('/declaration/originDetails/{id}', [
+        'uses' => 'DeclarationController@originDetailsPost',
+        'as' => 'declaration.originDetailsPost'
+    ]);
+
+    /**
+     * step 6
+     */
+    Route::get('/declaration/ecdAttachment/{id}', [
+        'uses' => 'DeclarationController@ecdAttachment',
+        'as' => 'declaration.ecdAttachment'
+    ]);
+    Route::post('/declaration/ecdAttachment/{id}', [
+        'uses' => 'DeclarationController@ecdAttachmentPost',
+        'as' => 'declaration.ecdAttachmentPost'
+    ]);
+
+    /**
+     * applications state
+     */
+    Route::get('/declaration/applicationState', [
+        'uses' => 'DeclarationController@applicationState',
+        'as' => 'declaration.applicationState'
+    ]);
+    Route::post('/declaration/applicationState', [
+        'uses' => 'DeclarationController@applicationStatePost',
+        'as' => 'declaration.applicationStatePost'
+    ]);
+
+    /**
+     * ecdShipping controller
+     */
+    /**
+     * applications state
+     */
+    Route::get('/ecdShipping/applicationState', [
+        'uses' => 'EcdShippingController@applicationState',
+        'as' => 'ecdShipping.applicationState'
+    ]);
+    Route::post('/ecdShipping/applicationState', [
+        'uses' => 'EcdShippingController@applicationStatePost',
+        'as' => 'ecdShipping.applicationStatePost'
+    ]);
+    /**
+     * ecd Shipping
+     */
+    /**
+     * step 7
+     */
+    Route::get('/ecdShipping/containerDetails/{id}', [
+        'uses' => 'EcdShippingController@containerDetails',
+        'as' => 'ecdShipping.containerDetails'
+    ]);
+    Route::post('/ecdShipping/containerDetails/{id}', [
+        'uses' => 'EcdShippingController@containerDetailsPost',
+        'as' => 'ecdShipping.containerDetailsPost'
+    ]);
+
+    /**
+     * step 8
+     */
+    Route::get('/ecdShipping/transportationDetails/{id}', [
+        'uses' => 'EcdShippingController@transportationDetails',
+        'as' => 'ecdShipping.transportationDetails'
+    ]);
+    Route::post('/ecdShipping/transportationDetails/{id}', [
+        'uses' => 'EcdShippingController@transportationDetailsPost',
+        'as' => 'ecdShipping.transportationDetailsPost'
+    ]);
+
+    /**
+     * step 9
+     */
+    Route::get('/ecdShipping/freightDetails/{id}', [
+        'uses' => 'EcdShippingController@freightDetails',
+        'as' => 'ecdShipping.freightDetails'
+    ]);
+    Route::post('/ecdShipping/freightDetails/{id}', [
+        'uses' => 'EcdShippingController@freightDetailsPost',
+        'as' => 'ecdShipping.freightDetailsPost'
+    ]);
+    
+    /**
+     * step 10
+     */
+    Route::get('/ecdShipping/packagingDetails/{id}', [
+        'uses' => 'EcdShippingController@packagingDetails',
+        'as' => 'ecdShipping.packagingDetails'
+    ]);
+    Route::post('/ecdShipping/packagingDetails/{id}', [
+        'uses' => 'EcdShippingController@packagingDetailsPost',
+        'as' => 'ecdShipping.packagingDetailsPost'
+    ]);
+    /**
+     * step 11
+     */
+    Route::get('/ecdShipping/attachmentDetails/{id}', [
+        'uses' => 'EcdShippingController@attachmentDetails',
+        'as' => 'ecdShipping.attachmentDetails'
+    ]);
+    Route::post('/ecdShipping/attachmentDetails/{id}', [
+        'uses' => 'EcdShippingController@attachmentDetailsPost',
+        'as' => 'ecdShipping.attachmentDetailsPost'
     ]);
 });
 
@@ -121,8 +233,8 @@ Route::get('language/{locale}', function ($locale) {
 /*
  * owner image
  */
-Route::get('/ownerImage/{filename}', function ($filename) {
-    $path = storage_path() . '/app/public/images/owner/' . $filename;
+Route::get('/ecdFile/{filename}', function ($filename) {
+    $path = storage_path() . '/app/public/images/ecd/' . $filename;
 
     if (!File::exists($path))
         abort(404);
@@ -133,23 +245,7 @@ Route::get('/ownerImage/{filename}', function ($filename) {
     $response = Response::make($file, 200);
     $response->header("Content-Type", $type);
     return $response;
-})->name('owner');
-/*
- * unit contract image
- */
-Route::get('/contractImage/{filename}', function ($filename) {
-    $path = storage_path() . '/app/public/images/unit/' . $filename;
-
-    if (!File::exists($path))
-        abort(404);
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->name('unit');
+})->name('ecd');
 
 /* * ************************************************************************************** */
 /* * ************************************************************************************** */

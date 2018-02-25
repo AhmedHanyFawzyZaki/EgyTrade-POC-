@@ -21,10 +21,9 @@ class DeclarationController extends Controller {
         $this->middleware('auth');
     }
 
-    /*
+    /**
      * step 1 
      */
-
     public function index() {
         $app_steps = ApplicationSteps::whereNull('waiting_on')->get();
         return view('/frontend/declaration/step1', [
@@ -34,6 +33,7 @@ class DeclarationController extends Controller {
     }
 
     public function indexPost(Request $request) {
+        $request->flash(); //save the input before redirect
         $rules = ['company_id' => 'required'];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -49,10 +49,9 @@ class DeclarationController extends Controller {
         }
     }
 
-    /*
+    /**
      * step 2 
      */
-
     public function senderDetails($id) {
         $application = Applications::find($id);
         if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
@@ -69,6 +68,7 @@ class DeclarationController extends Controller {
     }
 
     public function senderDetailsPost(Request $request, $id) {
+        $request->flash(); //save the input before redirect
         $application = Applications::find($id);
         if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
             $rules = [
@@ -101,10 +101,9 @@ class DeclarationController extends Controller {
         }
     }
 
-    /*
+    /**
      * step 3
      */
-
     public function consignmentDetails($id) {
         $application = Applications::find($id);
         if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
@@ -121,6 +120,7 @@ class DeclarationController extends Controller {
     }
 
     public function consignmentDetailsPost(Request $request, $id) {
+        $request->flash(); //save the input before redirect
         $application = Applications::find($id);
         if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
             $rules = [
@@ -154,6 +154,193 @@ class DeclarationController extends Controller {
         } else {
             flash(trans('declaration.Wrong Request'))->error();
             return redirect()->route('home');
+        }
+    }
+
+    /**
+     * step 4
+     */
+    public function inspectionDetails($id) {
+        $application = Applications::find($id);
+        if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
+            $app_steps = ApplicationSteps::whereNull('waiting_on')->get();
+            return view('/frontend/declaration/step4', [
+                'app_steps' => $app_steps,
+                'application' => $application,
+                'current_step' => 4
+            ]);
+        } else {
+            flash(trans('declaration.Wrong Request'))->error();
+            return redirect()->route('home');
+        }
+    }
+
+    public function inspectionDetailsPost(Request $request, $id) {
+        $request->flash(); //save the input before redirect
+        $application = Applications::find($id);
+        if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
+            $rules = [
+                'ir_inspection_loc' => 'required',
+                'ir_inspection_date' => 'required',
+                'ir_inspection_address' => 'required'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator);
+            } else {
+                $application->ir_inspection_loc = $request->input('ir_inspection_loc');
+                $application->ir_inspection_date = $request->input('ir_inspection_date');
+                $application->ir_inspection_address = $request->input('ir_inspection_address');
+                $application->current_step = 4;
+                if ($application->save()) {
+                    return redirect()->route('declaration.originDetails', ['id' => $application->id]);
+                }
+            }
+        } else {
+            flash(trans('declaration.Wrong Request'))->error();
+            return redirect()->route('home');
+        }
+    }
+
+    /**
+     * step 5
+     */
+    public function originDetails($id) {
+        $application = Applications::find($id);
+        if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
+            $app_steps = ApplicationSteps::whereNull('waiting_on')->get();
+            return view('/frontend/declaration/step5', [
+                'app_steps' => $app_steps,
+                'application' => $application,
+                'current_step' => 5
+            ]);
+        } else {
+            flash(trans('declaration.Wrong Request'))->error();
+            return redirect()->route('home');
+        }
+    }
+
+    public function originDetailsPost(Request $request, $id) {
+        $request->flash(); //save the input before redirect
+        $application = Applications::find($id);
+        if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
+            $rules = [
+                'od_country' => 'required'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator);
+            } else {
+                $application->od_country = $request->input('od_country');
+                $application->current_step = 5;
+                if ($application->save()) {
+                    return redirect()->route('declaration.ecdAttachment', ['id' => $application->id]);
+                }
+            }
+        } else {
+            flash(trans('declaration.Wrong Request'))->error();
+            return redirect()->route('home');
+        }
+    }
+
+    /**
+     * step 6
+     */
+    public function ecdAttachment($id) {
+        $application = Applications::find($id);
+        if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
+            $app_steps = ApplicationSteps::whereNull('waiting_on')->get();
+            return view('/frontend/declaration/step6', [
+                'app_steps' => $app_steps,
+                'application' => $application,
+                'current_step' => 6
+            ]);
+        } else {
+            flash(trans('declaration.Wrong Request'))->error();
+            return redirect()->route('home');
+        }
+    }
+
+    public function ecdAttachmentPost(Request $request, $id) {
+        $request->flash(); //save the input before redirect
+        $application = Applications::find($id);
+        if ($application && $application->created_by == Auth::id() && $application->did_num == '') {
+            $rules = [
+                'att_agreement' => 'required',
+                'att_ecd_invoice' => 'required'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator);
+            } else {
+                if ($request->hasFile('att_agreement')) {
+                    $image = $request->file('att_agreement');
+                    $fileName = $application->id . '-agreement-' . time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
+
+                    $img = Image::make($image->getRealPath());
+                    /* $img->resize(120, 120, function ($constraint) {
+                      $constraint->aspectRatio();
+                      }); */
+
+                    $img->stream();
+                    Storage::disk('public')->put('images/ecd/' . $fileName, $img);
+                    $application->att_agreement = $fileName;
+                }
+                if ($request->hasFile('att_ecd_invoice')) {
+                    $image = $request->file('att_ecd_invoice');
+                    $fileName = $application->id . '-invoice-' . time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
+
+                    $img = Image::make($image->getRealPath());
+
+                    $img->stream();
+                    Storage::disk('public')->put('images/ecd/' . $fileName, $img);
+                    $application->att_ecd_invoice = $fileName;
+                }
+                /**
+                 * create did num here
+                 */
+                $application->did_num = rand(100000, 999999);
+                $application->current_step = 6;
+                if ($application->save()) {
+                    flash(trans('declaration.ECD application has been submitted successfully and your "DID Number" is: ', ['did_num' => $application->did_num]))->success();
+                    return redirect()->route('home');
+                }
+            }
+        } else {
+            flash(trans('declaration.Wrong Request'))->error();
+            return redirect()->route('home');
+        }
+    }
+
+    /**
+     * application state
+     */
+    public function applicationState() {
+        return view('/frontend/declaration/search', ['app_steps' => '', 'current_step' => '']);
+    }
+
+    public function applicationStatePost(Request $request) {
+        $request->flash(); //save the input before redirect
+        $rules = [
+            'app_num' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        } else {
+            $application = Applications::where('did_num', $request->input('app_num'))
+                    ->orWhere('sad_num', $request->input('app_num'))
+                    ->first();
+            if ($application) {
+                $app_steps = ApplicationSteps::all();
+                return view('/frontend/declaration/search', [
+                    'app_steps' => $app_steps,
+                    'current_step' => $application->current_step + 1 //which means the next step
+                ]);
+            } else {
+                flash(trans('declaration.Wrong (DID or SAD) number'))->error();
+                return redirect()->back();
+            }
         }
     }
 

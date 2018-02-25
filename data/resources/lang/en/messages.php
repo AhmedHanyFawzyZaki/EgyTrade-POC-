@@ -89,4 +89,7 @@ return [
     'Account Info.' => 'Account Info.',
     'New ECD' => 'New ECD',
     'Continue Shipping' => 'Continue Shipping',
+    'Applications State' => 'Applications State',
+    'Application State' => 'Application State',
+    'Continue Shipping Details' => 'Continue Shipping Details',
 ];

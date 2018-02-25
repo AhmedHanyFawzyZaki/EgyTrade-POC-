@@ -61,7 +61,7 @@ class CreateApplicationsTable extends Migration {
             $table->string('fd_call_sign')->nullable();
             $table->string('fd_imo_num')->nullable();
             $table->decimal('fd_total_weight', 10, 2)->nullable();
-            $table->decimal('fd_net_sign', 10, 2)->nullable();
+            $table->decimal('fd_net_weight', 10, 2)->nullable();
             $table->unsignedInteger('fd_fr_line_id')->nullable();
             $table->foreign('fd_fr_line_id')->references('id')->on('freight_lines');
             $table->unsignedInteger('fd_shipping_port')->nullable();

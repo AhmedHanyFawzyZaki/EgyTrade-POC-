@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-02-25 03:13:43
+Date: 2018-02-26 00:05:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,7 +37,7 @@ CREATE TABLE `sw_applications` (
   `cn_billing_terms_id` int(10) unsigned DEFAULT NULL,
   `cn_cargo_type_id` int(10) unsigned DEFAULT NULL,
   `ir_inspection_loc` int(10) unsigned DEFAULT NULL,
-  `ir_inspection_date` date DEFAULT NULL,
+  `ir_inspection_date` datetime DEFAULT NULL,
   `ir_inspection_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `od_country` int(10) unsigned DEFAULT NULL,
   `att_agreement` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `sw_applications` (
   `fd_call_sign` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fd_imo_num` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fd_total_weight` decimal(10,2) DEFAULT NULL,
-  `fd_net_sign` decimal(10,2) DEFAULT NULL,
+  `fd_net_weight` decimal(10,2) DEFAULT NULL,
   `fd_fr_line_id` int(10) unsigned DEFAULT NULL,
   `fd_shipping_port` int(10) unsigned DEFAULT NULL,
   `fd_final_dest` int(10) unsigned DEFAULT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE `sw_applications` (
 -- ----------------------------
 -- Records of sw_applications
 -- ----------------------------
-INSERT INTO `sw_applications` VALUES ('1', '7', '5', '3', 'con name', '54321', '20', 'address 7', '1', '', '', '', null, null, '3', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2018-02-24 22:04:27', '2018-02-25 01:11:11');
+INSERT INTO `sw_applications` VALUES ('1', '7', '5', '11', 'con name', '54321', '20', 'address 7', '1', '', '', '', null, null, '3', '1', '1', '2018-02-27 14:30:00', 'address of ins', '63', '1-agreement-151956590178.PNG', '1-invoice-151956590164.PNG', '127489', '014', '025', 'driver name', '15000.00', '14000.00', '9630', null, null, null, null, null, null, '1', '4', '2018-02-27', '2018-02-27', '111', 'APL logistics egypt', '22 شارع كمال الدين حسين شيراتون', null, null, '1-ini_shippment-151959596028.PNG', '1-pack-151959596082.PNG', '659858', '2018-02-24 22:04:27', '2018-02-25 21:59:20');
 
 -- ----------------------------
 -- Table structure for `sw_application_cn`
@@ -146,11 +146,14 @@ CREATE TABLE `sw_application_cr` (
   CONSTRAINT `application_cr_cr_capacity_foreign` FOREIGN KEY (`cr_capacity`) REFERENCES `sw_container_capacities` (`id`),
   CONSTRAINT `application_cr_cr_owner_foreign` FOREIGN KEY (`cr_owner`) REFERENCES `sw_container_owners` (`id`),
   CONSTRAINT `application_cr_cr_type_foreign` FOREIGN KEY (`cr_type`) REFERENCES `sw_container_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_application_cr
 -- ----------------------------
+INSERT INTO `sw_application_cr` VALUES ('10', '1', '10', '1', '2', '3', '2018-02-25 18:37:15', '2018-02-25 18:37:15');
+INSERT INTO `sw_application_cr` VALUES ('11', '1', '20', '2', '3', '1', '2018-02-25 18:37:15', '2018-02-25 18:37:15');
+INSERT INTO `sw_application_cr` VALUES ('12', '1', '30', '3', '1', '2', '2018-02-25 18:37:15', '2018-02-25 18:37:15');
 
 -- ----------------------------
 -- Table structure for `sw_application_notifications`
@@ -189,11 +192,13 @@ CREATE TABLE `sw_application_px` (
   KEY `application_px_px_type_id_foreign` (`px_type_id`),
   CONSTRAINT `application_px_application_id_foreign` FOREIGN KEY (`application_id`) REFERENCES `sw_applications` (`id`),
   CONSTRAINT `application_px_px_type_id_foreign` FOREIGN KEY (`px_type_id`) REFERENCES `sw_px_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_application_px
 -- ----------------------------
+INSERT INTO `sw_application_px` VALUES ('5', '1', '1', '10.00', '2018-02-25 21:47:22', '2018-02-25 21:47:22');
+INSERT INTO `sw_application_px` VALUES ('6', '1', '2', '13.00', '2018-02-25 21:47:22', '2018-02-25 21:47:22');
 
 -- ----------------------------
 -- Table structure for `sw_application_steps`
@@ -209,7 +214,7 @@ CREATE TABLE `sw_application_steps` (
   PRIMARY KEY (`id`),
   KEY `application_steps_previous_step_foreign` (`previous_step`),
   CONSTRAINT `application_steps_previous_step_foreign` FOREIGN KEY (`previous_step`) REFERENCES `sw_application_steps` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_application_steps
@@ -220,7 +225,11 @@ INSERT INTO `sw_application_steps` VALUES ('3', 'Consignment Details\r\n', 'تف
 INSERT INTO `sw_application_steps` VALUES ('4', 'Inspection Request Details', 'بيانات طلب الفحص', '', null, '3');
 INSERT INTO `sw_application_steps` VALUES ('5', 'Origin Details\r\n', 'تفاصيل المنشأ', '', null, '4');
 INSERT INTO `sw_application_steps` VALUES ('6', 'ECD Attachments', 'تحميل ملفات', '', null, '5');
-INSERT INTO `sw_application_steps` VALUES ('7', 'ss', 'سسسسسسسس', '', 'did_num', '6');
+INSERT INTO `sw_application_steps` VALUES ('7', 'Consignment Details', 'تفاصيل الحاويات', '', 'did_num', '6');
+INSERT INTO `sw_application_steps` VALUES ('8', 'Transportation Details', 'معلومات عن السيارات', '', 'did_num', '7');
+INSERT INTO `sw_application_steps` VALUES ('9', 'Freight Details', 'بيانات الشحن', '', 'did_num', '8');
+INSERT INTO `sw_application_steps` VALUES ('10', 'Packaging Details', 'بيانات العبوة', '', 'did_num', '9');
+INSERT INTO `sw_application_steps` VALUES ('11', 'Shipping Attachments', 'تحميل الملفات', '', 'did_num', '10');
 
 -- ----------------------------
 -- Table structure for `sw_billing_terms`
@@ -313,11 +322,14 @@ CREATE TABLE `sw_container_capacities` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_ar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_container_capacities
 -- ----------------------------
+INSERT INTO `sw_container_capacities` VALUES ('1', 'Container Capacity\r\n1', 'سعة الحاوية\r\n1');
+INSERT INTO `sw_container_capacities` VALUES ('2', 'Container Capacity\r\n2', 'سعة الحاوية\r\n2');
+INSERT INTO `sw_container_capacities` VALUES ('3', 'Container Capacity\r\n3', 'سعة الحاوية\r\n3');
 
 -- ----------------------------
 -- Table structure for `sw_container_owners`
@@ -328,11 +340,15 @@ CREATE TABLE `sw_container_owners` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_ar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_container_owners
 -- ----------------------------
+INSERT INTO `sw_container_owners` VALUES ('1', 'co 1', 'مالك الحاوية\r\n 1');
+INSERT INTO `sw_container_owners` VALUES ('2', 'co 2', 'مالك الحاوية\r\n 2');
+INSERT INTO `sw_container_owners` VALUES ('3', 'co 3', 'مالك الحاوية\r\n 3');
+INSERT INTO `sw_container_owners` VALUES ('4', 'co 4', 'مالك الحاوية\r\n 4');
 
 -- ----------------------------
 -- Table structure for `sw_container_types`
@@ -343,11 +359,14 @@ CREATE TABLE `sw_container_types` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_ar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_container_types
 -- ----------------------------
+INSERT INTO `sw_container_types` VALUES ('1', 'Container Type 1', 'نوع الحاوية\r\n 1');
+INSERT INTO `sw_container_types` VALUES ('2', 'Container Type 2', 'نوع الحاوية\r\n 2');
+INSERT INTO `sw_container_types` VALUES ('3', 'Container Type 3', 'نوع الحاوية\r\n 3');
 
 -- ----------------------------
 -- Table structure for `sw_countries`
@@ -613,11 +632,15 @@ CREATE TABLE `sw_freight_lines` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_ar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_freight_lines
 -- ----------------------------
+INSERT INTO `sw_freight_lines` VALUES ('1', 'APL', 'APL');
+INSERT INTO `sw_freight_lines` VALUES ('2', 'Name of freight line\r\n1', 'اسم الخط الملاحي\r\nاسم الخط الملاحي\r\n 1');
+INSERT INTO `sw_freight_lines` VALUES ('3', 'Name of freight line\r\n2', 'اسم الخط الملاحي\r\n2');
+INSERT INTO `sw_freight_lines` VALUES ('4', 'Name of freight line\r\n3', 'اسم الخط الملاحي\r\n3');
 
 -- ----------------------------
 -- Table structure for `sw_hs_codes`
@@ -647,11 +670,13 @@ CREATE TABLE `sw_inspection_locations` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_ar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_inspection_locations
 -- ----------------------------
+INSERT INTO `sw_inspection_locations` VALUES ('1', 'Inside Customs', 'داخل الجمرك');
+INSERT INTO `sw_inspection_locations` VALUES ('2', 'External Comitee', 'لجنة خارجية');
 
 -- ----------------------------
 -- Table structure for `sw_migrations`
@@ -715,11 +740,13 @@ CREATE TABLE `sw_px_types` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_ar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_px_types
 -- ----------------------------
+INSERT INTO `sw_px_types` VALUES ('1', 'Pack type 1', 'Pack type 1');
+INSERT INTO `sw_px_types` VALUES ('2', 'Pack type 2', 'Pack type 2');
 
 -- ----------------------------
 -- Table structure for `sw_shipping_ports`
@@ -730,11 +757,15 @@ CREATE TABLE `sw_shipping_ports` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_ar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sw_shipping_ports
 -- ----------------------------
+INSERT INTO `sw_shipping_ports` VALUES ('1', 'Shipping port 1', 'ميناء الشحن 1');
+INSERT INTO `sw_shipping_ports` VALUES ('2', 'Shipping port 2', 'ميناء الشحن 2');
+INSERT INTO `sw_shipping_ports` VALUES ('3', 'Shipping port 3', 'ميناء الشحن 3');
+INSERT INTO `sw_shipping_ports` VALUES ('4', 'Shipping port 4', 'ميناء الشحن 4');
 
 -- ----------------------------
 -- Table structure for `sw_user`

@@ -91,7 +91,7 @@ span.required {
     display: table-cell;
     text-align: center;
     position: relative;
-    max-width: 60px;
+    max-width: 90px;
 }
 
 .btn-circle {
@@ -116,4 +116,13 @@ span.required {
 .btn-done:hover, .btn-done:active, .btn-done:focus {
     background: #00a65a !important;
     color:#fff;
+}
+.form-inline .control-label{
+    padding-top: 6px;
+}
+.form-inline .form-control{
+    margin: 0px 5px;
+}
+.form-inline .help-block{
+    display: none;
 }

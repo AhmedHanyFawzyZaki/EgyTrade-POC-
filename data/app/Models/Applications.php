@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Applications extends Model {
+    use \App\Traits\ApplicationTrait;
 
     /**
      * get company relationship

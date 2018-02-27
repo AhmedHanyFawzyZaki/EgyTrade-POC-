@@ -104,7 +104,8 @@ if (in_array($locale, ['ar']))
         <div class="wrapper">
 
             <!-- Main Header -->
-            @include('layouts.frontend.header')
+            @include('notifications')
+			@include('layouts.frontend.header')
             <!-- Left side column. contains the logo and sidebar -->
             @include('layouts.frontend.sidebar')
 

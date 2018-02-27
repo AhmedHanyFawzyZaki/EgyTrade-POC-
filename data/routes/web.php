@@ -170,7 +170,7 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
         'uses' => 'EcdShippingController@freightDetailsPost',
         'as' => 'ecdShipping.freightDetailsPost'
     ]);
-    
+
     /**
      * step 10
      */
@@ -293,4 +293,70 @@ Route::group(['namespace' => 'Auth', 'middleware' => 'setLocale'], function () {
         'uses' => 'LoginController@logout',
         'as' => 'auth.logout'
     ]);
+});
+
+
+
+
+/**
+  Web Services test
+ */
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('test', function() {
+        // Display
+        dd(\App\Models\Applications::with(['application_cns', 'application_crs', 'application_pxs'])->limit(10)->get()->toArray());
+        $arr = [];
+        foreach (\Schema::getColumnListing('applications') as $f)
+            $arr[$f] = '';
+        dd(str_replace("\\n", "", var_export($arr, true)));
+        dd("End");
+    });
+
+
+    Route::get('test/wbs_send_app/{app_id}', function($app_id = null) {
+        $model = null;
+        $model = \App\Models\Applications::find($app_id);
+        dump('Working with APP_ID = ' . $model->id);
+        dump('With DID = ' . $model->did_num);
+        //    dump($model->toArray());
+        $model->apiSendAppRequest();
+        dd("End");
+    })->where(['app_id' => '[0-9]+']);
+
+    Route::get('test/wbs_update_app_status/{did}/{notif_status_id}', function($did, $notif_status_id) {
+        $app = new \App\Models\Applications();
+        $app->apiUpdateAppStatusRequest($did, $notif_status_id);
+        dd("End");
+    })->where(['did' => '[0-9]+', 'notif_status_id' => '[0-9]+']);
+
+
+
+    Route::get('/notifications', function() {
+        return view('notifications');
+    });
+    Route::get('/notifications-ajax', function() {
+        $result = \App\Models\ApplicationNotifications::whereHas('applications', function($q) {
+                    $q->where('created_by', auth()->user()->id);
+                })->where('seen', 0)->orderBy('created_at')->get();
+        return response()->json([
+                    'success' => true,
+                    'result' => $result
+        ]);
+    });
+
+    Route::get('/update-notifications-ajax/{id}', function($id) {
+        \App\Models\ApplicationNotifications::where('id', $id)
+                ->update(['seen' => 1]);
+        return response()->json(['success' => true]);
+    });
+
+    Route::get('/main-notifications-ajax', function() {
+        $result = \App\Models\ApplicationNotifications::whereHas('applications', function($q) {
+                    $q->where('created_by', auth()->user()->id);
+                })->where('seen', 0)->orderBy('created_at')->get();
+        return response()->json([
+                    'success' => true,
+                    'result' => $result
+        ]);
+    });
 });

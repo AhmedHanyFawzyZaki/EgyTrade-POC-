@@ -22,3 +22,6 @@
 		1- Changed the design of the front-end and the landing page.
 		2- Database lookups filling.
 		3- Fixed the package step to be links with the application hs_hs_code.
+		
+	v1.0.3:
+		1- Added the WSDL and the soap client.

@@ -19,14 +19,14 @@ if (in_array($locale, ['ar'])) {
     @include('frontend.declaration.steps-bar', ['app_steps' => $app_steps])
     <div class="box-body">
         <?php
-        echo BootForm::text('sd_consignee_name', ['html' => trans('declaration.Consignee Name') . ' <span class="required">*</span>']);
-        echo BootForm::text('sd_cus_ref_num', ['html' => trans('declaration.Custom Reference No.') . ' <span class="required">*</span>'], $application->getCompany->customs_ref_num);
-        echo BootForm::text('sd_vat', ['html' => trans('declaration.Vat') . ' <span class="required">*</span>'], $application->getCompany->vat);
-        echo BootForm::text('sd_consignee_address', ['html' => trans('declaration.Consignee Address') . ' <span class="required">*</span>'], $application->getCompany->address);
+        echo BootForm::text('sd_consignee_name', ['html' => trans('declaration.Consignee Name') . ' <span class="required">*</span>'], $application->getCompany->name, ['readonly' => 'readonly']);
+        echo BootForm::text('sd_cus_ref_num', ['html' => trans('declaration.Custom Reference No.') . ' <span class="required">*</span>'], $application->getCompany->customs_ref_num, ['readonly' => 'readonly']);
+        echo BootForm::text('sd_vat', ['html' => trans('declaration.Vat') . ' <span class="required">*</span>'], $application->getCompany->vat, ['readonly' => 'readonly']);
+        echo BootForm::text('sd_consignee_address', ['html' => trans('declaration.Consignee Address') . ' <span class="required">*</span>'], $application->getCompany->address, ['readonly' => 'readonly']);
         echo BootForm::select('sd_recipient_country', ['html' => trans('declaration.Recipient Country') . ' <span class="required">*</span>'], \App\Models\Countries::pluck('name' . $field_ar, 'id')->prepend(trans('declaration.Please select country'), ''), '', ['class' => 'select2']);
         echo BootForm::text('sd_recipient_name', ['html' => trans('declaration.Recipient Name')]);
         echo BootForm::text('sd_recipient_address', ['html' => trans('declaration.Recipient Address')]);
-        echo BootForm::text('sd_reg_custom', ['html' => trans('declaration.Registration Customs')]);
+        echo BootForm::text('sd_reg_custom', ['html' => trans('declaration.Registration Customs') . ' <span class="required">*</span>']);
         ?>
     </div>
     <div class="box-footer clearfix">

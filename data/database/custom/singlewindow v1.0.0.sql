@@ -794,9 +794,9 @@ CREATE TABLE `sw_user` (
 -- Records of sw_user
 -- ----------------------------
 INSERT INTO `sw_user` VALUES ('1', 'ahmed.hany@acmesaico.com', '$2y$10$GTE.kQQaBfHU./mtbJucw.qNTa1ZZ2xwH.XmbTufrhWpuM.RZaGgC', '1', '1', 'DODkljCen1h1JjtsQUpvYiOZMqcHKGlhNCEHIbP64VT3gP50s1QAY9f1EYrc', '2018-02-23 20:42:12', '2018-02-23 23:30:53', '0.00', null);
-INSERT INTO `sw_user` VALUES ('5', 'Ali.makram@jet.com', '$2y$10$GTE.kQQaBfHU./mtbJucw.qNTa1ZZ2xwH.XmbTufrhWpuM.RZaGgC', '1', '3', null, null, null, '0.00', '4');
-INSERT INTO `sw_user` VALUES ('7', 'Ahmed.mostafa@elhamed.com', '$2y$10$GTE.kQQaBfHU./mtbJucw.qNTa1ZZ2xwH.XmbTufrhWpuM.RZaGgC', '1', '3', null, null, null, '0.00', '7');
-INSERT INTO `sw_user` VALUES ('9', 'Hany.louka@stcegypt.com', '$2y$10$GTE.kQQaBfHU./mtbJucw.qNTa1ZZ2xwH.XmbTufrhWpuM.RZaGgC', '1', '3', null, null, null, '0.00', '8');
+INSERT INTO `sw_user` VALUES ('5', 'Ali.makram@jet.com', '$2y$10$GTE.kQQaBfHU./mtbJucw.qNTa1ZZ2xwH.XmbTufrhWpuM.RZaGgC', '1', '3', null, null, null, '0.00', null);
+INSERT INTO `sw_user` VALUES ('7', 'Ahmed.mostafa@elhamed.com', '$2y$10$GTE.kQQaBfHU./mtbJucw.qNTa1ZZ2xwH.XmbTufrhWpuM.RZaGgC', '1', '3', null, null, null, '0.00',null);
+INSERT INTO `sw_user` VALUES ('9', 'Hany.louka@stcegypt.com', '$2y$10$GTE.kQQaBfHU./mtbJucw.qNTa1ZZ2xwH.XmbTufrhWpuM.RZaGgC', '1', '3', null, null, null, '0.00',null);
 
 -- ----------------------------
 -- Table structure for `sw_user_type`

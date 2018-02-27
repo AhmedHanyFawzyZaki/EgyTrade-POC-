@@ -17,3 +17,8 @@
 		3- Built Applications state feature.
 		4- Fixed some miss spelling in the migration files.
 		5- Created links for the ecd images being added while submitting application to be displayed securely.
+	
+	v1.0.2:
+		1- Changed the design of the front-end and the landing page.
+		2- Database lookups filling.
+		3- Fixed the package step to be links with the application hs_hs_code.

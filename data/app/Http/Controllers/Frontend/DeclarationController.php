@@ -76,7 +76,8 @@ class DeclarationController extends Controller {
                 'sd_cus_ref_num' => 'required',
                 'sd_vat' => 'required',
                 'sd_consignee_address' => 'required',
-                'sd_recipient_country' => 'required'
+                'sd_recipient_country' => 'required',
+                'sd_reg_custom' => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {

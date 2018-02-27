@@ -19,7 +19,7 @@ if (in_array($locale, ['ar'])) {
     @include('frontend.declaration.steps-bar', ['app_steps' => $app_steps])
     <div class="box-body">
         <?php
-        echo BootForm::select('company_id', ['html' => trans('declaration.Company') . ' <span class="required">*</span>'], \App\Models\Companies::pluck('name', 'id')->prepend(trans('declaration.Please select company'), ''));
+        echo BootForm::select('company_id', ['html' => trans('declaration.Company') . ' <span class="required">*</span>'], \App\Models\Companies::pluck('name', 'id')->prepend(trans('declaration.Please select company'), ''), '', ['class' => 'select2']);
         ?>
     </div>
     <div class="box-footer clearfix">

@@ -21,7 +21,7 @@ if (in_array($locale, ['ar']))
         <!-- <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />-->
         <!-- Theme style -->
         <link href="{{ url('/') }}/files/css/admin/style{{$rtl}}.css" rel="stylesheet" />
-        <!--<link href="{{ url('/') }}/files/css/admin/skins/skin-black.min.css" rel="stylesheet" />-->
+        <link href="{{ url('/') }}/files/css/admin/skins/skin-black.min.css" rel="stylesheet" />
         <link href="{{ url('/') }}/files/css/front-style.css" rel="stylesheet" />
 
         <!-- REQUIRED JS SCRIPTS -->
@@ -52,11 +52,11 @@ if (in_array($locale, ['ar']))
                 dir: "<?= $rtl ? 'rtl' : 'ltr' ?>"
             });
             /*$('.datepick').datepicker({
-                rtl: true,
-                language: 'ar-AR',
-                autoclose: true,
-                format: 'yyyy-mm-dd',
-            });*/
+             rtl: true,
+             language: 'ar-AR',
+             autoclose: true,
+             format: 'yyyy-mm-dd',
+             });*/
             $('.datetimepickmin').datetimepicker({
                 format: 'YYYY-MM-DD HH:mm:00',
                 showClose: true,
@@ -68,6 +68,7 @@ if (in_array($locale, ['ar']))
             });
         });
         </script>
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -99,24 +100,29 @@ if (in_array($locale, ['ar']))
     2- add class "hidden-xs" to the logo element.
      
     -->
-    <body class="sidebar-collapse hidden-logo">
-        <div class="container">
+    <body class="skin-black fixed hidden-logo">
+        <div class="wrapper">
 
             <!-- Main Header -->
             @include('layouts.frontend.header')
             <!-- Left side column. contains the logo and sidebar -->
             @include('layouts.frontend.sidebar')
 
-            @include('flash::message')
-            <div class="jumbotron">
-                @include('layouts.shared.alerts')
-                <!-- Page Content -->
-                @yield('content')
-            </div>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    @yield('content-header')
+                </section>
 
-            <footer class="footer">
-                <p>© 2017 D.A.T.A</p>
-            </footer>
+                <!-- Main content -->
+                <section class="content">
+                    @include('flash::message')
+                    @include('layouts.shared.alerts')
+                    <!-- Page Content -->
+                    @yield('content')
+                </section><!-- /.content -->
+            </div><!-- /.content-wrapper -->
 
         </div><!-- ./wrapper -->
     </body>

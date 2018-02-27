@@ -20,11 +20,15 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
     // Controllers Within The "App\Http\Controllers\Frontend" Namespace
     Route::get('/', [
         'uses' => 'HomeController@index',
+        'as' => 'landingPage'
+    ]);
+    Route::get('/home', [
+        'uses' => 'HomeController@home',
         'as' => 'home'
     ]);
-    Route::get('/contact', [
-        'uses' => 'HomeController@contact',
-        'as' => 'home.contact'
+    Route::get('/services', [
+        'uses' => 'HomeController@services',
+        'as' => 'home.services'
     ]);
 
     /**

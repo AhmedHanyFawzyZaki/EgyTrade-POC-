@@ -20,11 +20,15 @@ if (in_array($locale, ['ar'])) {
     @include('frontend.declaration.steps-bar', ['app_steps' => $app_steps])
     <div class="box-body">
         <?php
-        echo BootForm::number('cn_gross_weight', ['html' => trans('declaration.Consignment Gross Weight')]);
-        echo BootForm::number('cn_comm_num', ['html' => trans('declaration.Number Of Commodities')]);
         echo BootForm::select('cn_billing_terms_id', ['html' => trans('declaration.Billing Terms') . ' <span class="required">*</span>'], \App\Models\BillingTerms::pluck('name' . $field_ar, 'id')->prepend(trans('declaration.Please select billing terms'), ''), '', ['class' => 'select2']);
-        echo BootForm::select('cn_cargo_type_id', ['html' => trans('declaration.Cargo Type') . ' <span class="required">*</span>'], \App\Models\CargoTypes::pluck('name' . $field_ar, 'id')->prepend(trans('declaration.Please select cargo type'), ''), '', ['class' => 'select2']);
+        echo BootForm::select('cn_cargo_type_id', ['html' => trans('declaration.Cargo Type') . ' <span class="required">*</span>'], \App\Models\CargoTypes::pluck('name' . $field_ar, 'id')->prepend(trans('declaration.Please select cargo type'), ''), '', ['class' => 'select2', 'onchange' => 'showHide(this.value)']);
         ?>
+        <div id="showHide">
+            <?php
+            echo BootForm::number('cn_gross_weight', ['html' => trans('declaration.Consignment Gross Weight')]);
+            echo BootForm::number('cn_comm_num', ['html' => trans('declaration.Number Of Commodities')]);
+            ?>
+        </div>
         <div class="well text-center">
             <div class="clone text-left">
                 <div class="well col-sm-10">
@@ -55,6 +59,13 @@ $(function () {
     });
     $('a.add').relCopy({append: removeLink, highestID: "highestID"});
 });
+function showHide(val) {
+    if (val == 2) {
+        $('#showHide').show();
+    } else {
+        $('#showHide').hide();
+    }
+}
 </script>
 {{BootForm::close()}}
 @stop

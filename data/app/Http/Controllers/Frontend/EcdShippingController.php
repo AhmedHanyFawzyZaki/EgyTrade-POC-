@@ -51,12 +51,18 @@ class EcdShippingController extends Controller {
     public function containerDetails($id) {
         $application = Applications::find($id);
         if ($application && $application->created_by == Auth::id() && $application->did_num != '') {
-            $app_steps = ApplicationSteps::all();
-            return view('/frontend/ecdShipping/step7', [
-                'app_steps' => $app_steps,
-                'application' => $application,
-                'current_step' => 7
-            ]);
+            if ($application->cn_cargo_type_id == 2) {
+                $application->current_step = 7;
+                $application->save();
+                return redirect()->route('ecdShipping.transportationDetails', ['id' => $application->id]);
+            } else {
+                $app_steps = ApplicationSteps::all();
+                return view('/frontend/ecdShipping/step7', [
+                    'app_steps' => $app_steps,
+                    'application' => $application,
+                    'current_step' => 7
+                ]);
+            }
         } else {
             flash(trans('declaration.Wrong Request'))->error();
             return redirect()->route('home');
@@ -74,17 +80,19 @@ class EcdShippingController extends Controller {
                 return redirect()->back()->withErrors($validator);
             } else {
                 $application->current_step = 7;
-                if ($request->cr_num && !empty($request->cr_num) && $application->save()) {
-                    if ($request->cr_num) {
-                        \App\Models\ApplicationCr::where('application_id', $application->id)->delete();
-                        foreach ($request->cr_num as $i => $cr) {
-                            $app_cr = new \App\Models\ApplicationCr();
-                            $app_cr->application_id = $application->id;
-                            $app_cr->cr_num = $cr;
-                            $app_cr->cr_owner = $request->cr_owner[$i];
-                            $app_cr->cr_type = $request->cr_type[$i];
-                            $app_cr->cr_capacity = $request->cr_capacity[$i];
-                            $app_cr->save();
+                if ($application->save()) {
+                    if ($request->cr_num && !empty($request->cr_num)) {
+                        if ($request->cr_num) {
+                            \App\Models\ApplicationCr::where('application_id', $application->id)->delete();
+                            foreach ($request->cr_num as $i => $cr) {
+                                $app_cr = new \App\Models\ApplicationCr();
+                                $app_cr->application_id = $application->id;
+                                $app_cr->cr_num = $cr;
+                                $app_cr->cr_owner = $request->cr_owner[$i];
+                                $app_cr->cr_type = $request->cr_type[$i];
+                                $app_cr->cr_capacity = $request->cr_capacity[$i];
+                                $app_cr->save();
+                            }
                         }
                     }
                     return redirect()->route('ecdShipping.transportationDetails', ['id' => $application->id]);
@@ -214,10 +222,12 @@ class EcdShippingController extends Controller {
         $application = Applications::find($id);
         if ($application && $application->created_by == Auth::id() && $application->did_num != '') {
             $app_steps = ApplicationSteps::all();
+            $apps_cn = \App\Models\ApplicationCn::where('application_id', $application->id)->get();
             return view('/frontend/ecdShipping/step10', [
                 'app_steps' => $app_steps,
                 'application' => $application,
-                'current_step' => 10
+                'current_step' => 10,
+                'apps_cn' => $apps_cn
             ]);
         } else {
             flash(trans('declaration.Wrong Request'))->error();
@@ -244,6 +254,7 @@ class EcdShippingController extends Controller {
                             $app_px->application_id = $application->id;
                             $app_px->px_type_id = $px;
                             $app_px->px_weight = $request->px_weight[$i];
+                            $app_px->application_cn_id = $request->application_cn_id[$i];
                             $app_px->save();
                         }
                     }

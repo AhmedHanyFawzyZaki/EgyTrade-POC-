@@ -38,6 +38,10 @@ class User extends Authenticatable {
         return $this->belongsTo(UserType::class, 'user_type_id');
     }
 
+    public function getCompany() {
+        return $this->belongsTo(Companies::class, 'company_id');
+    }
+
     /*
      * before save, if the password has been updated re-hash it
      */

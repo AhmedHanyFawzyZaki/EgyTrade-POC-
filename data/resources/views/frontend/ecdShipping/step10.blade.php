@@ -20,13 +20,19 @@ if (in_array($locale, ['ar'])) {
     @include('frontend.declaration.steps-bar', ['app_steps' => $app_steps])
     <div class="box-body">
         <div class="well text-center">
+            @if($apps_cn)
+            @foreach($apps_cn as $ap)
             <div class="clone text-left">
                 <div class="well col-sm-10">
+                    <?php echo BootForm::hidden('application_cn_id[]', $ap->id); ?>
+                    <?php echo BootForm::text('hs_code[]', ['html' => trans('declaration.Hs Code')], $ap->getHsCode->hs_desc_ar . ' (' . $ap->getHsCode->hs_code . ')', ['readonly' => 'readonly']); ?>
                     <?php echo BootForm::text('px_weight[]', ['html' => trans('declaration.Pack Weight') . ' <span class="required">*</span>'], '', ['required' => 'required']); ?>
                     <?php echo BootForm::select('px_type[]', ['html' => trans('declaration.Pack Type') . ' <span class="required">*</span>'], \App\Models\PxTypes::pluck('name' . $field_ar, 'id')->prepend(trans('declaration.Please select pack type'), ''), '', ['class' => 'select2', 'required' => 'required']); ?>
                 </div>
             </div>
-            <a href="javascript:void(0)" rel=".clone" class="add btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> {{trans('declaration.Add More Pack')}}</a>
+            @endforeach
+            @endif
+    <!--<a href="javascript:void(0)" rel=".clone" class="add btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> {{trans('declaration.Add More Pack')}}</a>-->
         </div>
     </div>
     <div class="box-footer clearfix">

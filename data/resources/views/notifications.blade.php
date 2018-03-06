@@ -21,24 +21,17 @@ function check_notifications() {
             }).done(function () {
                 console.log(msg.message + ' => seen');
             });
-            jqueryObj.notify(msg.message, {
+            /*jqueryObj.notify(msg.message, {
                 position: "top center",
                 clickToHide: true,
                 autoHide: false,
                 className: 'success'
             });
-            console.log(msg.message);
+            console.log(msg.message);*/
         });
     });
 }
-function check_main_notifications() {
-    $.ajax({
-        url: "{{url('/main-notifications-ajax')}}",
-        success: function(data){
-            
-        }
-    });
-}
-setInterval(check_notifications, 5000);
-setInterval(check_main_notifications, 5000);
+//check_notifications();
+//setInterval(check_notifications, 60000);
+//setInterval(check_main_notifications, 60000);
 </script>

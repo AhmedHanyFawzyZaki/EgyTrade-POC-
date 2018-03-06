@@ -303,7 +303,8 @@ class DeclarationController extends Controller {
                 $application->did_num = rand(100000, 999999);
                 $application->current_step = 6;
                 if ($application->save()) {
-                    flash(trans('declaration.ECD application has been submitted successfully and your "DID Number" is: ', ['did_num' => $application->did_num]))->success();
+                    $application->apiSendAppSetDIDNotify();
+                    //flash(trans('declaration.ECD application has been submitted successfully and your "DID Number" is: ', ['did_num' => $application->did_num]))->success();
                     return redirect()->route('home');
                 }
             }
@@ -336,6 +337,7 @@ class DeclarationController extends Controller {
                 $app_steps = ApplicationSteps::all();
                 return view('/frontend/declaration/search', [
                     'app_steps' => $app_steps,
+                    'application' => $application,
                     'current_step' => $application->current_step + 1 //which means the next step
                 ]);
             } else {

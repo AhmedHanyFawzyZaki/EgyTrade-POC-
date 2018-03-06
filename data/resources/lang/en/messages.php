@@ -92,4 +92,5 @@ return [
     'Applications State' => 'Applications State',
     'Application State' => 'Application State',
     'Continue Shipping Details' => 'Continue Shipping Details',
+    'Export' => 'Export',
 ];

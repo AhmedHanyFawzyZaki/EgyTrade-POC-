@@ -14,22 +14,30 @@ if (in_array($locale, ['ar'])) {
 ?>
 <div class="clear"><br><br></div>
 <div class="row">
-    <a class="col-lg-5 col-xs-6" title="{{ trans('messages.New ECD') }}" href="{{ route('declaration.index') }}">
-        <div class="info-box">
-            <span class="info-box-icon bg-green-gradient"><i class="fa fa-plus"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-content"><br><b>{{ trans('messages.New ECD') }}</b></span>
-            </div><!-- /.info-box-content -->
+    <a class="col-sm-4 col-xs-6 col-sm-offset-1" title="{{ trans('messages.New ECD') }}" href="{{ route('declaration.index') }}">
+        <div class="box box-solid">
+            <div class="box-body">
+                <h4 class="text-center boxes-header">
+                    <i class="fa fa-folder-open-o font-54"></i>
+                    <br><br>
+                    <span class="black-text">
+                    {{ trans('messages.New ECD') }} ({{ trans('messages.Export') }})
+                    </span>
+                </h4>
+            </div>
         </div>
     </a>
-    <a class="col-lg-5 col-xs-6 col-sm-offset-2" title="{{trans('messages.Continue Shipping Details')}}" href="{{route('ecdShipping.applicationState')}}">
-        <div class="info-box">
-            <span class="info-box-icon bg-blue-gradient"><i class="fa fa-refresh"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-content"><br>
-                    <b>{{trans('messages.Continue Shipping Details')}}</b>
-                </span>
-            </div><!-- /.info-box-content -->
+    <a class="col-sm-4 col-xs-6 col-sm-offset-1" title="{{trans('messages.Continue Shipping Details')}}" href="{{route('ecdShipping.applicationState')}}">
+        <div class="box box-solid">
+            <div class="box-body">
+                <h4 class="text-center boxes-header">
+                    <i class="fa fa-folder-open-o font-54"></i>
+                    <br><br>
+                    <span class="black-text">
+                    {{trans('messages.Continue Shipping Details')}}
+                    </span>
+                </h4>
+            </div>
         </div>
     </a>
 </div>

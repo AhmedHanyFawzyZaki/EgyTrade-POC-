@@ -16,7 +16,7 @@ class ACME_Export_POCflowPortalInterfacesStartProcessWSDL extends \SoapClient {
         'ContainerDetails' => '\\ContainerDetails',
         'Container' => '\\Container',
         'PackingDetails' => '\\PackingDetails',
-        'PackingList' => '\\PackingList',
+        'Packing' => '\\Packing',
         'OriginatorDetails' => '\\OriginatorDetails',
         'FreightDetails' => '\\FreightDetails',
         'TransportationDetails' => '\\TransportationDetails',
@@ -40,7 +40,7 @@ class ACME_Export_POCflowPortalInterfacesStartProcessWSDL extends \SoapClient {
             'features' => 1,
                 ), $options);
         if (!$wsdl) {
-            $wsdl = env('API_SEND_APP_URL');
+            $wsdl = 'http://35.188.149.214:5555/ws/ACME_Export_POC.flow.PortalInterfaces:StartProcessWSDL?WSDL';
         }
         parent::__construct($wsdl, $options);
     }

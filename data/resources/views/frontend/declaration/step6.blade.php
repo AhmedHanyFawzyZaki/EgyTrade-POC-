@@ -12,8 +12,10 @@ if (in_array($locale, ['ar'])) {
     $field_ar = '_ar';
 }
 ?>
-
-<h3 class="alert alert-info text-center">{{trans('declaration.Ecd Attachment')}}</h3>
+<ol class="breadcrumb">
+  <li><a href="#">{{ trans('messages.New ECD') }} ({{ trans('messages.Export') }})</a></li>
+  <li class="active">{{trans('declaration.Ecd Attachment')}}</li>
+</ol>
 {{ BootForm::open(['name'=>'step6', 'enctype'=>'multipart/form-data', 'left_column_offset_class'=>'col-sm-offset-0']) }}
 <div class="box">
     @include('frontend.declaration.steps-bar', ['app_steps' => $app_steps])

@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'notfication_1' => 'الرقم التعريفى للاقرار '.' DID = :did',
-    'notfication_2' => 'ميعاد تقديم المستندات ' .' :date',
-    'notfication_3' => 'تم استلام المستندات بنجاح',
-    'notfication_4' => 'تم الفحص بنجاح واصدار اذن الافراج المبدئ',
-    'notfication_5' => 'تم دخول البضاعه لمنفذ التصدير',
-    'notfication_6' => 'تم وزن البضاعه',
-    'notfication_7' => 'تم اصدار اذن الافراج النهائى',
-    'notfication_8' => 'تم اصدار اذن الشحن',
+    'notfication_1' => 'الرقم التعريفى للاقرار ' . ' = :did' . ' ' . 'الخاص ب :company',
+    'notfication_2' => 'ميعاد تقديم المستندات ' . ' :date' . ' ' . 'الخاص ب :company' .' '.'<a href="'.url('/pdft').'/:app_id" class="pull-right">تحميل</a>',
+    'notfication_3' => 'تم استلام المستندات بنجاح' . ' ' . 'الخاص ب :company',
+    'notfication_4' => 'تم الفحص بنجاح واصدار اذن الافراج المبدئ' . ' ' . 'الخاص ب :company' .' '.'<a href="'.url('/pdf').'/:app_id" class="pull-right">تحميل</a>',
+    'notfication_5' => 'تم دخول البضاعه لمنفذ التصدير' . ' ' . 'الخاص ب :company',
+    'notfication_6' => 'تم وزن البضاعه' . ' ' . 'الخاص ب :company',
+    'notfication_7' => 'تم اصدار اذن الافراج النهائى' . ' ' . 'الخاص ب :company',
+    'notfication_8' => 'تم اصدار اذن الشحن' . ' ' . 'الخاص ب :company' .' '.'<a href="'.url('/pdf').'/:app_id" class="pull-right">تحميل</a>',
 ];

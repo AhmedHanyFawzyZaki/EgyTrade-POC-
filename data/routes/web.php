@@ -146,6 +146,10 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'setLocale'], function 
         'uses' => 'EcdShippingController@containerDetailsPost',
         'as' => 'ecdShipping.containerDetailsPost'
     ]);
+    Route::get('/ecdShipping/getContainerNumberDetails', [
+        'uses' => 'EcdShippingController@getContainerNumberDetails',
+        'as' => 'ecdShipping.getContainerNumberDetails'
+    ]);
 
     /**
      * step 8
@@ -359,4 +363,7 @@ Route::group(['middleware' => ['auth']], function () {
                     'result' => $result
         ]);
     });
+
+    Route::get('/pdf/{id}/{check}', 'pdfController@index');
+    Route::get('/pdft/{id}', 'pdfTController@index');
 });

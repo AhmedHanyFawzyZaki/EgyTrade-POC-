@@ -13,7 +13,10 @@ if (in_array($locale, ['ar'])) {
 }
 ?>
 
-<h3 class="alert alert-info text-center">{{trans('declaration.Packaging Details')}}</h3>
+<ol class="breadcrumb">
+  <li><a href="#">{{trans('messages.Continue Shipping Details')}}</a></li>
+  <li class="active">{{trans('declaration.Packaging Details')}}</li>
+</ol>
 {{ BootForm::open(['name'=>'step10', 'left_column_offset_class'=>'col-sm-offset-0']) }}
 {{ BootForm::hidden('highestID', 0, ['id' => 'highestID']) }}<!-- hidden input used in relcopy-->
 <div class="box">
@@ -27,6 +30,7 @@ if (in_array($locale, ['ar'])) {
                     <?php echo BootForm::hidden('application_cn_id[]', $ap->id); ?>
                     <?php echo BootForm::text('hs_code[]', ['html' => trans('declaration.Hs Code')], $ap->getHsCode->hs_desc_ar . ' (' . $ap->getHsCode->hs_code . ')', ['readonly' => 'readonly']); ?>
                     <?php echo BootForm::text('px_weight[]', ['html' => trans('declaration.Pack Weight') . ' <span class="required">*</span>'], '', ['required' => 'required']); ?>
+                    <?php echo BootForm::text('px_num[]', ['html' => trans('declaration.Pack Numbers') . ' <span class="required">*</span>'], '', ['required' => 'required']); ?>
                     <?php echo BootForm::select('px_type[]', ['html' => trans('declaration.Pack Type') . ' <span class="required">*</span>'], \App\Models\PxTypes::pluck('name' . $field_ar, 'id')->prepend(trans('declaration.Please select pack type'), ''), '', ['class' => 'select2', 'required' => 'required']); ?>
                 </div>
             </div>

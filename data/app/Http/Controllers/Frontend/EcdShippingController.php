@@ -88,9 +88,6 @@ class EcdShippingController extends Controller {
                                 $app_cr = new \App\Models\ApplicationCr();
                                 $app_cr->application_id = $application->id;
                                 $app_cr->cr_num = $cr;
-                                $app_cr->cr_owner = $request->cr_owner[$i];
-                                $app_cr->cr_type = $request->cr_type[$i];
-                                $app_cr->cr_capacity = $request->cr_capacity[$i];
                                 $app_cr->save();
                             }
                         }
@@ -102,6 +99,23 @@ class EcdShippingController extends Controller {
             flash(trans('declaration.Wrong Request'))->error();
             return redirect()->route('home');
         }
+    }
+
+    public function getContainerNumberDetails(Request $request) {
+        $contNum = $request->input('contNum');
+        $field = $request->input('field');
+        $model = \App\Models\ContainerNumbers::where('id', $contNum)->first();
+        $msg = 0;
+        if ($model) {
+            $msg = 1;
+            return [
+                'msg' => $msg,
+                'owner' => $model->getOwner->$field,
+                'capacity' => $model->getCapacity->$field,
+                'type' => $model->getType->$field
+            ];
+        }
+        return ['msg' => $msg];
     }
 
     /**
@@ -253,6 +267,7 @@ class EcdShippingController extends Controller {
                             $app_px = new \App\Models\ApplicationPx();
                             $app_px->application_id = $application->id;
                             $app_px->px_type_id = $px;
+                            $app_px->px_num = $request->px_num[$i];
                             $app_px->px_weight = $request->px_weight[$i];
                             $app_px->application_cn_id = $request->application_cn_id[$i];
                             $app_px->save();
@@ -326,7 +341,8 @@ class EcdShippingController extends Controller {
                 $application->sad_num = rand(100000, 999999);
                 $application->current_step = 11;
                 if ($application->save()) {
-                    flash(trans('declaration.ECD Application has been completed successfully and your "SAD Number" is: ', ['sad_num' => $application->sad_num]))->success();
+                    $application->apiSendAppRequest();
+                    //flash(trans('declaration.ECD Application has been completed successfully and your "SAD Number" is: ', ['sad_num' => $application->sad_num]))->success();
                     return redirect()->route('home');
                 }
             }

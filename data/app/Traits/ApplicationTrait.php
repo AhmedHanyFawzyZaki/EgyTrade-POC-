@@ -16,6 +16,42 @@ trait ApplicationTrait {
         return $this->hasMany('\App\Models\ApplicationPx', 'application_id');
     }
 
+    public function sd_recipient_country_rel() {
+        return $this->belongsTo('\App\Models\Countries', 'sd_recipient_country');
+    }
+
+    public function cn_billing_terms_id_rel() {
+        return $this->belongsTo('\App\Models\BillingTerms', 'cn_billing_terms_id');
+    }
+
+    public function cn_cargo_type_id_rel() {
+        return $this->belongsTo('\App\Models\CargoTypes', 'cn_cargo_type_id');
+    }
+
+    public function ir_inspection_loc_rel() {
+        return $this->belongsTo('\App\Models\InspectionLocations', 'ir_inspection_loc');
+    }
+
+    public function od_country_rel() {
+        return $this->belongsTo('\App\Models\Countries', 'od_country');
+    }
+
+    public function fd_fr_line_id_rel() {
+        return $this->belongsTo('\App\Models\FreightLines', 'fd_fr_line_id');
+    }
+
+    public function fd_shipping_port_rel() {
+        return $this->belongsTo('\App\Models\ShippingPorts', 'fd_shipping_port');
+    }
+
+    public function fd_final_dest_rel() {
+        return $this->belongsTo('\App\Models\ShippingPorts', 'fd_final_dest');
+    }
+
+    public function sd_reg_custom_rel() {
+        return $this->belongsTo('\App\Models\ShippingPorts', 'sd_reg_custom');
+    }
+
     /*     * ********************************************************* */
 
     public function apiSendAppRequest() {
@@ -44,32 +80,32 @@ trait ApplicationTrait {
                 'notif_status_id' => 2,
                 'seen' => 0,
                 'has_attachment' => 0,
-                'message' => trans('notifications.notfication_2', ['date' => $this->created_at->addDays(2)]),
-                'message_ar' => trans('notifications.notfication_2', ['date' => $this->created_at->addDays(2)])
+                'message' => trans('notifications.notfication_2', ['date' => $this->created_at->addDays(2), 'company' => (isset($this->getCompany->name) ? $this->getCompany->name : ''), 'app_id'=>$this->id]),
+                'message_ar' => trans('notifications.notfication_2', ['date' => $this->created_at->addDays(2), 'company' => (isset($this->getCompany->name) ? $this->getCompany->name : ''), 'app_id'=>$this->id])
             ]);
         }
 
-        echo '<h1>WSDL URL</h1>';
-        dump(env('API_SEND_APP_URL'));
-        echo '<h1>Response</h1>';
-        dump($response);
-        $doc = new \DomDocument('1.0');
-        $doc->preserveWhiteSpace = false;
-        $doc->formatOutput = true;
-        $doc->loadXML($client->__getLastRequest());
-        $xml_string = $doc->saveXML();
-        echo '<h1>Request message</h1>';
-        echo '<textarea cols="150" rows="20" readonly>' . htmlentities($xml_string) . '</textarea>';
-        \Storage::put('/api_send_app/request.wsdl', $xml_string);
-        $doc = new \DomDocument('1.0');
-        $doc->preserveWhiteSpace = false;
-        $doc->formatOutput = true;
-        $doc->loadXML($client->__getLastResponse());
-        $xml_string = $doc->saveXML();
-        echo '<h1>Response message</h1>';
-        echo '<textarea cols="150" rows="20" readonly>' . htmlentities($xml_string) . '</textarea>';
-        \Storage::put('/api_send_app/response.wsdl', $xml_string);
-        dd("- End -");
+//        echo '<h1>WSDL URL</h1>';
+//        dump(env('API_SEND_APP_URL'));
+//        echo '<h1>Response</h1>';
+//        dump($response);
+//        $doc = new \DomDocument('1.0');
+//        $doc->preserveWhiteSpace = false;
+//        $doc->formatOutput = true;
+//        $doc->loadXML($client->__getLastRequest());
+//        $xml_string = $doc->saveXML();
+//        echo '<h1>Request message</h1>';
+//        echo '<textarea cols="150" rows="20" readonly>' . htmlentities($xml_string) . '</textarea>';
+//        \Storage::put('/api_send_app/request.wsdl', $xml_string);
+//        $doc = new \DomDocument('1.0');
+//        $doc->preserveWhiteSpace = false;
+//        $doc->formatOutput = true;
+//        $doc->loadXML($client->__getLastResponse());
+//        $xml_string = $doc->saveXML();
+//        echo '<h1>Response message</h1>';
+//        echo '<textarea cols="150" rows="20" readonly>' . htmlentities($xml_string) . '</textarea>';
+//        \Storage::put('/api_send_app/response.wsdl', $xml_string);
+//        dd("- End -");
     }
 
     public function apiSendAppGetECDData() {
@@ -80,10 +116,10 @@ trait ApplicationTrait {
         $sender_details->setEGYCustomRefNumber($this->sd_cus_ref_num);
         $sender_details->setVATinPercent($this->sd_vat);
         $sender_details->setConsigneeAddress($this->sd_consignee_address);
-        $sender_details->setRecipientCountry($this->sd_recipient_country);
+        $sender_details->setRecipientCountry((isset($this->getRecipientCountry->name_ar)) ? $this->getRecipientCountry->name_ar : '');
         $sender_details->setRecipientName($this->sd_recipient_name);
         $sender_details->setRecipientAddress($this->sd_recipient_address);
-        $sender_details->setRegistrationCustoms($this->sd_reg_custom);
+        $sender_details->setRegistrationCustoms($this->sd_reg_custom_rel->name_ar);
         $ecd->setSenderDetails($sender_details);
 
         // Conseignments Details
@@ -91,7 +127,7 @@ trait ApplicationTrait {
         $cns = [];
         foreach ($this->application_cns as $cn_d) {
             $cn_o = new \Conseignmnet();
-            $cn_o->setHSCode($cn_d->cn_hs_code_id);
+            $cn_o->setHSCode($cn_d->getHsCode->hs_desc_ar);
             $cn_o->setQuantity($cn_d->cn_quantity);
             $cn_o->setUnitPrice($cn_d->cn_unit_price);
             $cn_o->setIsGOIECApproved('');
@@ -99,15 +135,18 @@ trait ApplicationTrait {
             $cns[] = $cn_o;
         }
         $conseignment_details->setConseignments($cns);
-        $conseignment_details->setConseignmentGrossWeight($this->cn_gross_weight);
-        $conseignment_details->setNumberOfCommodities($this->cn_comm_num);
-        $conseignment_details->setBillingINCOTerms($this->cn_billing_terms_id);
-        $conseignment_details->setTypeOfCargo($this->cn_cargo_type_id);
+        $gross_weight = 0;
+        foreach ($this->application_pxs as $px_d) 
+            $gross_weight += $px_d->px_num*$px_d->px_weight;        
+        $conseignment_details->setConseignmentGrossWeight($gross_weight);
+        $conseignment_details->setNumberOfCommodities($this->application_cns->count());
+        $conseignment_details->setBillingINCOTerms((isset($this->cn_billing_terms_id_rel->name_ar)) ? $this->cn_billing_terms_id_rel->name_ar : '');
+        $conseignment_details->setTypeOfCargo((isset($this->cn_cargo_type_id_rel->name_ar)) ? $this->cn_cargo_type_id_rel->name_ar : '');
         $ecd->setConseignmentDetails($conseignment_details);
 
         // Inspection Request
         $inspection_request = new \InspectionRequest();
-        $inspection_request->setInspectionLocation($this->ir_inspection_loc);
+        $inspection_request->setInspectionLocation((isset($this->ir_inspection_loc_rel->name_ar)) ? $this->ir_inspection_loc_rel->name_ar : '');
         $inspection_request->setInspectionDate($this->ir_inspection_date);
         $inspection_request->setInspectionAddress($this->ir_inspection_address);
         $ecd->setInspectionRequest($inspection_request);
@@ -117,10 +156,10 @@ trait ApplicationTrait {
         $crs = [];
         foreach ($this->application_crs as $cr_d) {
             $cr_o = new \Container();
-            $cr_o->setContainerType($cr_d->cr_type);
-            $cr_o->setContainerNumber($cr_d->cr_num);
-            $cr_o->setContainerOwner($cr_d->cr_owner);
-            $cr_o->setContainerCapacity($cr_d->cr_capacity);
+            $cr_o->setContainerType(isset($cr_d->cr_num_rel->getType->name_ar) ? $cr_d->cr_num_rel->getType->name_ar : '');
+            $cr_o->setContainerNumber($cr_d->cr_num_rel->cr_num);
+            $cr_o->setContainerOwner(isset($cr_d->cr_num_rel->getOwner->name_ar) ? $cr_d->cr_num_rel->getOwner->name_ar : '');
+            $cr_o->setContainerCapacity(isset($cr_d->cr_num_rel->getCapacity->name_ar) ? $cr_d->cr_num_rel->getCapacity->name_ar : '');
             $crs[] = $cr_o;
         }
         $container_details->setContainers($crs);
@@ -131,20 +170,20 @@ trait ApplicationTrait {
         $packaging_details = new \PackingDetails();
         $pxs = [];
         foreach ($this->application_pxs as $px_d) {
-            $px_o = new \PackingList();
-            $px_o->setPackagesType($px_d->px_type_id);
+            $px_o = new \Packing();
+            $px_o->setPackagesType(isset($px_d->px_type_id_rel->name_ar) ? $px_d->px_type_id_rel->name_ar : '');
             $px_o->setPackageWeight($px_d->px_weight);
             $px_o->setTotalWeightPerItem('');
             $pxs[] = $px_o;
         }
-        $packaging_details->setPackingLists($pxs);
+        $packaging_details->setPackingList($pxs);
         $packaging_details->setNumberOfPackages($this->application_pxs->count());
         $ecd->setPackingDetails($packaging_details);
 
 
         // Originator Details
         $originator_details = new \OriginatorDetails();
-        $originator_details->setCountryOfOrigin($this->od_country);
+        $originator_details->setCountryOfOrigin((isset($this->od_country_rel->name_ar)) ? $this->od_country_rel->name_ar : '');
         $ecd->setOriginatorDetails($originator_details);
 
         //Freight Details
@@ -155,9 +194,9 @@ trait ApplicationTrait {
         $freight_details->setIMONumber($this->fd_imo_num);
         $freight_details->setTotalWeight($this->fd_total_weight);
         $freight_details->setNetWeight($this->fd_net_weight);
-        $freight_details->setNameOfFreightLine($this->fd_fr_line_id);
-        $freight_details->setShippingPort($this->fd_shipping_port);
-        $freight_details->setFinalDestinationPort($this->fd_final_dest);
+        $freight_details->setNameOfFreightLine((isset($this->fd_fr_line_id_rel->name_ar)) ? $this->fd_fr_line_id_rel->name_ar : '');
+        $freight_details->setShippingPort((isset($this->fd_shipping_port_rel->name_ar)) ? $this->fd_shipping_port_rel->name_ar : '');
+        $freight_details->setFinalDestinationPort((isset($this->fd_final_dest_rel->name_ar)) ? $this->fd_final_dest_rel->name_ar : '');
         $freight_details->setExpectedArrivalDate($this->fd_expected_arr_date);
         $freight_details->setDateOfShipment($this->fd_shippment_date);
         $freight_details->setTripNumber($this->fd_trip_num);
@@ -180,16 +219,16 @@ trait ApplicationTrait {
         $atts = [];
         $atts[0] = new \Attachments();
         $atts[0]->setName('Agreement');
-        $atts[0]->setURL(url('/images/'));
+        $atts[0]->setURL(url('/ecdFile/'.$this->att_agreement));
         $atts[1] = new \Attachments();
         $atts[1]->setName('ECD Invoice');
-        $atts[1]->setURL(url('/images/'));
+        $atts[1]->setURL(url('/ecdFile/'.$this->att_ecd_invoice));
         $atts[2] = new \Attachments();
         $atts[2]->setName('INI Shipment');
-        $atts[2]->setURL(url('/images/'));
+        $atts[2]->setURL(url('/ecdFile/'.$this->att_ini_shippment));
         $atts[3] = new \Attachments();
         $atts[3]->setName('Pack');
-        $atts[3]->setURL(url('/images/'));
+        $atts[3]->setURL(url('/ecdFile/'.$this->att_pack));
         $ecd->setAttachments($atts);
 
         // General Info
@@ -207,8 +246,8 @@ trait ApplicationTrait {
             'notif_status_id' => 1,
             'seen' => 0,
             'has_attachment' => 0,
-            'message' => trans('notifications.notfication_1', ['did' => $this->did_num]),
-            'message_ar' => trans('notifications.notfication_1', ['did' => $this->did_num])
+            'message' => trans('notifications.notfication_1', ['did' => $this->did_num, 'company' => (isset($this->getCompany->name) ? $this->getCompany->name : ''), 'app_id'=>$this->id]),
+            'message_ar' => trans('notifications.notfication_1', ['did' => $this->did_num, 'company' => (isset($this->getCompany->name) ? $this->getCompany->name : ''), 'app_id'=>$this->id])
         ]);
     }
 
@@ -281,14 +320,10 @@ trait ApplicationTrait {
             'seen' => 0,
             'has_attachment' => 0,
 //            'metadata' => (isset($data->metadata)) ? $data->metadata : '',
-            'message' => trans('notifications.notfication_' . $data->notif_status_id),
-            'message_ar' => trans('notifications.notfication_' . $data->notif_status_id),
+            'message' => trans('notifications.notfication_' . $data->notif_status_id, ['company' => (isset($app->getCompany->name) ? $app->getCompany->name : ''), 'app_id'=>$app->id]),
+            'message_ar' => trans('notifications.notfication_' . $data->notif_status_id, ['company' => (isset($app->getCompany->name) ? $app->getCompany->name : ''), 'app_id'=>$app->id]),
         ]);
 
-        if($data->notif_status_id == '4') {
-            $app->sad_num = date('ymd').rand(1000000000, 9999999999);
-            $app->save();
-        }
         if (isset($data->metadata)) {
             $metadata = json_decode($data->metadata, true);
             $app->update($metadata);

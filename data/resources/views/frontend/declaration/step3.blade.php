@@ -12,8 +12,10 @@ if (in_array($locale, ['ar'])) {
     $field_ar = '_ar';
 }
 ?>
-
-<h3 class="alert alert-info text-center">{{trans('declaration.Consignment Details')}}</h3>
+<ol class="breadcrumb">
+  <li><a href="#">{{ trans('messages.New ECD') }} ({{ trans('messages.Export') }})</a></li>
+  <li class="active">{{trans('declaration.Consignment Details')}}</li>
+</ol>
 {{ BootForm::open(['name'=>'step3', 'left_column_offset_class'=>'col-sm-offset-0']) }}
 {{ BootForm::hidden('highestID', 0, ['id' => 'highestID']) }}<!-- hidden input used in relcopy-->
 <div class="box">
@@ -25,8 +27,8 @@ if (in_array($locale, ['ar'])) {
         ?>
         <div id="showHide">
             <?php
-            echo BootForm::number('cn_gross_weight', ['html' => trans('declaration.Consignment Gross Weight')]);
-            echo BootForm::number('cn_comm_num', ['html' => trans('declaration.Number Of Commodities')]);
+            //echo BootForm::number('cn_gross_weight', ['html' => trans('declaration.Consignment Gross Weight')]);
+            //echo BootForm::number('cn_comm_num', ['html' => trans('declaration.Number Of Commodities')]);
             ?>
         </div>
         <div class="well text-center">

@@ -13,7 +13,10 @@ if (in_array($locale, ['ar'])) {
 }
 ?>
 
-<h3 class="alert alert-info text-center">{{trans('declaration.Containers Details')}}</h3>
+<ol class="breadcrumb">
+    <li><a href="#">{{trans('messages.Continue Shipping Details')}}</a></li>
+    <li class="active">{{trans('declaration.Containers Details')}}</li>
+</ol>
 {{ BootForm::open(['name'=>'step7', 'left_column_offset_class'=>'col-sm-offset-0']) }}
 {{ BootForm::hidden('highestID', 0, ['id' => 'highestID']) }}<!-- hidden input used in relcopy-->
 <div class="box">
@@ -21,11 +24,11 @@ if (in_array($locale, ['ar'])) {
     <div class="box-body">
         <div class="well text-center">
             <div class="clone text-left">
-                <div class="well col-sm-10">
-                    <?php echo BootForm::text('cr_num[]', ['html' => trans('declaration.Container Number') . ' <span class="required">*</span>'], '', ['required' => 'required']); ?>
-                    <?php echo BootForm::select('cr_owner[]', ['html' => trans('declaration.Container Owner') . ' <span class="required">*</span>'], \App\Models\ContainerOwners::pluck('name'.$field_ar, 'id')->prepend(trans('declaration.Please select container owner'), ''), '', ['class' => 'select2', 'required' => 'required']); ?>
-                    <?php echo BootForm::select('cr_type[]', ['html' => trans('declaration.Container Type') . ' <span class="required">*</span>'], \App\Models\ContainerTypes::pluck('name'.$field_ar, 'id')->prepend(trans('declaration.Please select container type'), ''), '', ['class' => 'select2', 'required' => 'required']); ?>
-                    <?php echo BootForm::select('cr_capacity[]', ['html' => trans('declaration.Container Capacity') . ' <span class="required">*</span>'], \App\Models\ContainerCapacities::pluck('name'.$field_ar, 'id')->prepend(trans('declaration.Please select container capacity'), ''), '', ['class' => 'select2', 'required' => 'required']); ?>
+                <div class="well col-sm-10">                    
+                    <?php echo BootForm::select('cr_num[]', ['html' => trans('declaration.Container Number') . ' <span class="required">*</span>'], \App\Models\ContainerNumbers::pluck('cr_num', 'id')->prepend(trans('declaration.Please select container number'), ''), '', ['class' => 'select2', 'required' => 'required', 'onchange' => 'changeCont(this)', 'id' => 'cr_num']); ?>
+                    <?php echo BootForm::text('cr_ow', ['html' => trans('declaration.Container Owner') . ' <span class="required">*</span>'], '', ['readonly' => 'readonly']); ?>
+                    <?php echo BootForm::text('cr_ty', ['html' => trans('declaration.Container Type') . ' <span class="required">*</span>'], '', ['readonly' => 'readonly']); ?>
+                    <?php echo BootForm::text('cr_cap', ['html' => trans('declaration.Container Capacity') . ' <span class="required">*</span>'], '', ['readonly' => 'readonly']); ?>
                 </div>
             </div>
             <a href="javascript:void(0)" rel=".clone" class="add btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> {{trans('declaration.Add More Container')}}</a>
@@ -50,6 +53,21 @@ $(function () {
     });
     $('a.add').relCopy({append: removeLink, highestID: "highestID"});
 });
+
+function changeCont(obj) {
+    var id = obj.id;
+    var num = id.split("cr_num");
+    $.ajax({
+        url: "{{route('ecdShipping.getContainerNumberDetails')}}",
+        data: {contNum: obj.value, field: 'name{{$field_ar}}'},
+        method: "GET",
+        success: function (data) {
+            $('#cr_ow' + num[1]).val(data['owner']);
+            $('#cr_ty' + num[1]).val(data['type']);
+            $('#cr_cap' + num[1]).val(data['capacity']);
+        }
+    });
+}
 </script>
 {{BootForm::close()}}
 @stop

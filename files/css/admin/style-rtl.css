@@ -12,7 +12,7 @@
  */
 html,
 body {
-    font-size: 16px;
+    font-size: 18px;
     direction: rtl;
     min-height: 100%;
 }
@@ -278,7 +278,7 @@ a:focus {
 .main-header .logo {
     display: block;
     float: right;
-    height: 52px;
+    height: 55px;
     font-size: 15px;
     line-height: 50px;
     text-align: center;

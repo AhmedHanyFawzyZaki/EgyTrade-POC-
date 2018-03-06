@@ -25,6 +25,11 @@ if (in_array($locale, ['ar'])) {
         @if($app_steps && $current_step)
         <hr>
         @include('frontend.declaration.steps-bar', ['app_steps' => $app_steps])
+        <div class="text-center">
+            <a target="_blank" class="btn btn-success" href="{{url('/pdf')}}/{{$application->id}}">{{trans('messages.Print PDF')}}</a>
+            <br>
+            @include('pdf', ['application' => $application, 'username'=>$application->getCreatedBy->username])
+        </div>
         @endif
     </div>
 </div>

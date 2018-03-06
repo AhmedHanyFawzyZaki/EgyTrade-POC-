@@ -13,7 +13,7 @@ function autoload_5d04bb37b5955646ddd7f965e5f44b51($class) {
         'ContainerDetails' => __DIR__ . '/ContainerDetails.php',
         'Container' => __DIR__ . '/Container.php',
         'PackingDetails' => __DIR__ . '/PackingDetails.php',
-        'PackingList' => __DIR__ . '/PackingList.php',
+        'Packing' => __DIR__ . '/Packing.php',
         'OriginatorDetails' => __DIR__ . '/OriginatorDetails.php',
         'FreightDetails' => __DIR__ . '/FreightDetails.php',
         'TransportationDetails' => __DIR__ . '/TransportationDetails.php',

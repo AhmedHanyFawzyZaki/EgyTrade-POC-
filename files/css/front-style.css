@@ -56,7 +56,7 @@ span.required {
 */
 .stepwizard-step p {
     margin-top: 10px;   
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .stepwizard-row {
@@ -138,6 +138,40 @@ span.required {
     font-weight: bold; 
     font-size: 30px;
 }
-.font-34{
+.font-54{
     font-size: 54px;
+}
+.font-24{
+    font-size: 24px;
+    font-weight: bold;
+}
+.font-16{
+    font-size: 16px;
+}
+
+.breadcrumb{
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #f9f9f9;
+}
+.skin-black .main-sidebar, .skin-black .left-side, .skin-black .wrapper{
+    background: #3e3e3e;
+}
+.skin-black .sidebar>.sidebar-menu>li>a:hover, .skin-black .sidebar>.sidebar-menu>li.active>a{
+    background: #555;
+}
+.skin-black .main-header li.user-header{
+    background: #3e3e3e;
+}
+.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > span{
+    white-space:inherit;
+}
+.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > span{
+    color: #444444;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: inherit;
+    padding: 10px;
+    display: block;
+    border-bottom: 1px solid #f4f4f4;
 }

@@ -157,4 +157,141 @@ return [
     'Last Name' => 'الإسم الأخير',
     'Middle Name' => 'الإسم الأوسط',
     'Address' => 'العنوان',
+    /**
+     * Single Window
+     */
+    /**
+     * step 1
+     */
+    'Select Company' => 'إختيار الشركة المراد تقديم اقرار بضائع جديد لها',
+    'Company Details' => 'بيانات الشركة',
+    'Please select company' => 'برجاء اختيار الشركة المصدرة',
+    'Company' => 'الشركة المصدرة',
+    /**
+     * step 2
+     */
+    'Sender Details' => 'بيانات المصدر',
+    'Consignee Name' => 'إسم المصدر',
+    'Custom Reference No.' => 'رقم التعامل الجمركي',
+    'Vat' => 'رقم التسجيل في ض القيمة المضافة',
+    'Consignee Address' => 'عنوان المصدر',
+    'Recipient Country' => 'الدولة المصدر اليها',
+    'Please select country' => 'برجاء اختيار الدولة المصدر اليها',
+    'Recipient Name' => 'اسم المستورد ',
+    'Recipient Address' => 'عنوان المستورد',
+    'Registration Customs' => 'جمرك القيد',
+    'Please select reg. custom' => 'برجاء إختيار جمرك القيد',
+    /**
+     * step 3
+     */
+    'Consignment Details' => 'بيانات الشحنة',
+    'Consignment Gross Weight' => 'وزن البضائع الاجمالي',
+    'Number Of Commodities' => 'عدد انواع السلع',
+    'Billing Terms' => 'شروط الدفع',
+    'Please select billing terms' => 'برجاء إختيار شروط الدفع',
+    'Please select cargo type' => 'برجاء إختيار نوع البضائع',
+    'Cargo Type' => 'نوع البضائع',
+    'Add More HSCODE' => 'إضافة رقم بند جمركي',
+    'Hs Code' => 'رقم البند الجمركي',
+    'Please select hs code' => 'برجاء إختيار رقم البند الجمركي',
+    'Quantity' => 'الكمية بالكيلو جرام',
+    'Unit Price' => 'سعر الوحدة بالجنيه المصري',
+    /**
+     * step 4
+     */
+    'Inspection Details' => 'بيانات الفحص',
+    'Inspection Address' => 'عنوان موقع الفحص',
+    'Inspection Date' => 'تاريخ الفحص',
+    'Inspection Location' => 'موقع الفحص',
+    'Please select inspection location' => 'برجاء إختيار موقع الفحص',
+    /**
+     * step 5
+     */
+    'Origin Details' => 'بيانات المنشأ',
+    'Country of origin' => 'بلد المنشأ',
+    'Please select country of origin' => 'برجاء إختيار بلد المنشأ',
+    /**
+     * step 6
+     */
+    'Ecd Attachment' => 'الملفات',
+    'Agreement of export' => 'موافقة تصديرية',
+    'Invoice' => 'الفاتورة',
+    'ECD application has been submitted successfully and your "DID Number" is: ' => 'لقد تم إنشاء إقرار بضائع (صادر) بنجاح "الرقم التعريفي للإقرار" is: :did_num',
+    /**
+     * Application State
+     */
+    'Applications State' => 'موقف الطلبات المقدمة',
+    'Application State' => 'حالة الطلب',
+    'Application (DID or SAD)' => 'الرقم التعريفي للإقرار أو رقم الإفراج المبدئي',
+    'Search' => 'بحث',
+    'Wrong (DID or SAD) number' => 'خطأ! الرقم التعريفي للإقرار أو رقم الإفراج المبدئي تم إدخاله بشكل غير صحيح.',
+    /**
+     * ECD Shipping controller
+     */
+    'Application DID Number' => 'الرقم التعريفي للإقرار',
+    'Continue ECD Shipping' => 'إستكمال بيانات الشحن',
+    'Wrong (DID) number' => 'خطأ! الرقم التعريفي للإقرار تم ادخاله بشكل خطأ.',
+    /**
+     * step 7
+     */
+    'Continue Shipping Details' => 'إستكمال بيانات الشحن',
+    'Containers Details' => 'بيانات الحاويات',
+    'Container Owner' => 'مالك الحاوية',
+    'Please select container owner' => 'برجاء إختيار مالك الحاوية',
+    'Container Number' => 'رقم الحاوية',
+    'Container Type' => 'نوع الحاوية',
+    'Please select container type' => 'برجاء إختيار نوع الحاوية',
+    'Please select container capacity' => 'برجاء إختيار سعة الحاوية',
+    'Container Capacity' => 'سعة الحاوية',
+    'Add More Container' => 'حاوية جديدة',
+    'Please select container number' => 'بـرجاء إختيار رقم الحاوية',
+    /**
+     * step 8
+     */
+    'Transportation Details' => 'معلومات عن السيارات',
+    'Car License Number' => 'رقم رخصة السيارة',
+    'Driver License' => 'رقم رخصة السائق',
+    'Driver Name' => 'اسم السائق',
+    'Car Total Weight' => 'الوزن القائم للسيارة',
+    'Car Net Weight' => 'الوزن الصافي للسيارة',
+    /**
+     * step 9
+     */
+    'Freight Details' => 'بيانات الشحن',
+    'Bill of lading number' => 'رقم  اذن الشحن',
+    'Vessel Name' => 'اسم السفينة',
+    'Call Sign' => 'شارة التعريف',
+    'IMO Number' => 'رقم IMO',
+    'Total Weight' => 'الوزن الكلي',
+    'Net Weight' => 'الوزن الصافي',
+    'Name Of Frieght Line' => 'اسم الخط الملاحي',
+    'Please select freight line' => 'برجاء إختيار اسم الخط الملاحي',
+    'Please select shipping port' => 'برجاء إختيار ميناء الشحن',
+    'Shipping Port' => 'ميناء الشحن',
+    'Please select final destination port' => 'برجاء إختيار الميناء النهائي',
+    'Final Destination Port' => 'الميناء النهائي',
+    'Expected Arrival Date' => 'تاريخ دخول الميناء المتوقع',
+    'Date Of Shippment' => 'تاريخ الشحن',
+    'Trip Number' => 'رقم الرحلة',
+    'Frieght Forwarder Name' => 'اسم وكيل الشحن',
+    'Frieght Forwarder Address' => 'عنوان وكيل الشحن',
+    'Frieght Agent Name' => 'اسم مندوب وكيل الشحن',
+    'Frieght Agent Address' => 'عنوان مندوب وكيل الشحن',
+    /**
+     * step 10
+     */
+    'Packaging Details' => 'بيانات العبوة',
+    'Pack Weight' => 'وزن العبوة القائم',
+    'Pack Type' => 'نوع العبوة',
+    'Please select pack type' => 'برجاء إختيار نوع العبوة',
+    'Add More Pack' => 'إضافة عبوة',
+    /**
+     * step 11
+     */
+    'Shipping Attachment' => 'مرفقات الشحن',
+    'Package Statement' => 'بيان العبوة',
+    'Initial Freight Permission' => 'اذن الشحن المبدئي',
+    'ECD Application has been completed successfully and your "SAD Number" is: ' => 'ECD Application has been completed successfully and your "SAD Number" is: :sad_num',
+    'Finish' => 'انهاء',
+    'Pack Numbers' => 'عدد العبوات',
 ];

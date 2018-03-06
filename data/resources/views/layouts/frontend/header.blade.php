@@ -27,7 +27,7 @@
                                 {{Auth::user()->username}} - {{Auth::user()->getCompany->name}}
                                 <br>
                                 <br>
-                                <small style="font-size: 24px;">{{trans('messages.E-Wallet')}} <br><span class="badge" style="font-size: 16px;">2000</span></small>
+                                <small style="font-size: 24px;">{{trans('messages.E-Wallet')}} <br><span class="badge font-16">{{Auth::user()->wallet}}</span></small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
@@ -40,44 +40,42 @@
                 </li>
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu pull-left">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <?php
+                    $unseen_count = \App\Models\ApplicationNotifications::whereHas('applications', function($q) {
+                                $q->where('created_by', auth()->user()->id);
+                            })->where('seen', 0)->orderBy('created_at')->get()->count();
+                    $models = \App\Models\ApplicationNotifications::whereHas('applications', function($q) {
+                                $q->where('created_by', auth()->user()->id);
+                            })->orderBy('created_at', 'desc')->get();
+                    ?>
+                    <a href="#" onclick="check_notifications()" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning">{{$unseen_count}}</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
+                        <!--<li class="header">You have {{$unseen_count}} new notifications</li>-->
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
+                                @if($models)
+                                @foreach($models as $m)
+                                <li>
+                                    <span>
+                                        <i class="fa fa-quote-right {{$m->seen?'text-aqua':'text-danger'}}"></i> 
+                                        {!! $m->message !!}
+                                    </span>
+                                </li>
+                                @endforeach
+                                @else
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        {{trans('messages.No Items Found')}}
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                        page and may cause design problems
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-red"></i> 5 new members joined
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-user text-red"></i> You changed your username
-                                    </a>
-                                </li>
+                                @endif
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
+                        <!--<li class="footer"><a href="#">View all</a></li>-->
                     </ul>
                 </li>
             </ul>

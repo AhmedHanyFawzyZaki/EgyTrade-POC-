@@ -14,6 +14,7 @@ class CreateApplicationPxTable extends Migration {
     public function up() {
         Schema::create('application_px', function(Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('px_num');
             $table->unsignedInteger('application_id');
             $table->foreign('application_id')->references('id')->on('applications');
             $table->unsignedInteger('px_type_id');

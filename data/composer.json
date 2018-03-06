@@ -9,11 +9,12 @@
         "adldap2/adldap2-laravel": "^3.0",
         "bonecms/laravel-captcha": "^1.1",
         "doctrine/dbal": "^2.6",
+        "intervention/image": "dev-master",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.3.*",
+        "tecnickcom/tcpdf": "^6.2",
         "watson/bootstrap-form": "^1.1",
-        "yajra/laravel-oci8": "5.3.*",
-        "intervention/image": "dev-master"
+        "yajra/laravel-oci8": "5.3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

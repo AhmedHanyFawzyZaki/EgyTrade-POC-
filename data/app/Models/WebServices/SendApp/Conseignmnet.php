@@ -27,6 +27,16 @@ class Conseignmnet {
      */
     protected $isCustomApproved = null;
 
+    /**
+     * @var string $GOIECComment
+     */
+    protected $GOIECComment = null;
+
+    /**
+     * @var string $CustomComment
+     */
+    protected $CustomComment = null;
+
     public function __construct() {
         
     }
@@ -108,6 +118,38 @@ class Conseignmnet {
      */
     public function setIsCustomApproved($isCustomApproved) {
         $this->isCustomApproved = $isCustomApproved;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGOIECComment() {
+        return $this->GOIECComment;
+    }
+
+    /**
+     * @param string $GOIECComment
+     * @return Conseignmnet
+     */
+    public function setGOIECComment($GOIECComment) {
+        $this->GOIECComment = $GOIECComment;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomComment() {
+        return $this->CustomComment;
+    }
+
+    /**
+     * @param string $CustomComment
+     * @return Conseignmnet
+     */
+    public function setCustomComment($CustomComment) {
+        $this->CustomComment = $CustomComment;
         return $this;
     }
 

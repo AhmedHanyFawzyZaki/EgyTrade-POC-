@@ -16,13 +16,8 @@ class CreateApplicationCrTable extends Migration {
             $table->increments('id');
             $table->unsignedInteger('application_id');
             $table->foreign('application_id')->references('id')->on('applications');
-            $table->string('cr_num');
-            $table->unsignedInteger('cr_owner');
-            $table->foreign('cr_owner')->references('id')->on('container_owners');
-            $table->unsignedInteger('cr_type');
-            $table->foreign('cr_type')->references('id')->on('container_types');
-            $table->unsignedInteger('cr_capacity');
-            $table->foreign('cr_capacity')->references('id')->on('container_capacities');
+            $table->unsignedInteger('cr_num');
+            $table->foreign('cr_num')->references('id')->on('container_numbers');
             $table->timestamps();
         });
     }

@@ -25,3 +25,8 @@
 		
 	v1.0.3:
 		1- Added the WSDL and the soap client.
+		
+	V1.0.4:
+		1- Added PDF creation to show notifications documents.
+		2- Fixed the WSDL and the soap client.
+		3- Fixed database and generated an empty database sql file.

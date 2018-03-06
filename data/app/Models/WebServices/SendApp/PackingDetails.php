@@ -8,28 +8,12 @@ class PackingDetails {
     protected $NumberOfPackages = null;
 
     /**
-     * @var PackingList[] $PackingLists
+     * @var Packing[] $PackingList
      */
-    protected $PackingLists = null;
+    protected $PackingList = null;
 
     public function __construct() {
         
-    }
-
-    /**
-     * @return PackingList[]
-     */
-    public function getPackingLists() {
-        return $this->PackingLists;
-    }
-
-    /**
-     * @param PackingList[] $PackingLists
-     * @return PackingDetails
-     */
-    public function setPackingLists(array $PackingLists = null) {
-        $this->PackingLists = $PackingLists;
-        return $this;
     }
 
     /**
@@ -45,6 +29,22 @@ class PackingDetails {
      */
     public function setNumberOfPackages($NumberOfPackages) {
         $this->NumberOfPackages = $NumberOfPackages;
+        return $this;
+    }
+
+    /**
+     * @return Packing[]
+     */
+    public function getPackingList() {
+        return $this->PackingList;
+    }
+
+    /**
+     * @param Packing[] $PackingList
+     * @return PackingDetails
+     */
+    public function setPackingList(array $PackingList = null) {
+        $this->PackingList = $PackingList;
         return $this;
     }
 

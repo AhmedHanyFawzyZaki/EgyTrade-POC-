@@ -14,6 +14,14 @@ class Applications extends Model {
     public function getCompany() {
         return $this->belongsTo(Companies::class, 'company_id');
     }
+    
+    /**
+     * get user relationship
+     * @return type
+     */
+    public function getCreatedBy() {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
     /**
      * get recipient country relationship

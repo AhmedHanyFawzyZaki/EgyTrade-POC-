@@ -52,7 +52,7 @@ if (in_array($locale, ['ar']))
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="{{route('landingPage')}}">{{trans('messages.Home')}}</a></li>
                                 <li><a href="#about"><i class="fa fa-info"></i> {{trans('messages.About us')}}</a></li>
-                                <li><a href="#services"><i class="fa fa-th-large"></i> {{trans('messages.Provided Services')}}</a></li>
+                                <li><a href="#services"><i class="fa fa-th-large"></i> {{trans('messages.Provided Advantages')}}</a></li>
                                 <li><a href="#contact"><i class="fa fa-phone"></i> {{trans('messages.Contact Us')}}</a></li>
                                 @if (Auth::guest())
                                 <li><a href="#" id="login-btn" data-toggle="modal" data-target="#loginModal"><i class="fa fa-lock"></i> {{trans('messages.Login')}}</a></li>
@@ -77,10 +77,10 @@ if (in_array($locale, ['ar']))
                             <li>
                                 <div class="agileits_w3layouts_banner_info">
                                     <div class="col-md-12 w3-agileits-bann text-right">
-                                        <h2 class="banner-cover-text">
+                                        <!--<h2 class="banner-cover-text">
                                             <br>{{trans('messages.The single window for trading in egypt')}}<br>
                                             <small class="white-font">{{trans('messages.New portal for business affairs')}}</small>
-                                        </h2>
+                                        </h2>-->
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -132,7 +132,7 @@ if (in_array($locale, ['ar']))
         <div class="news">
             <div class="banner-bottom" id="services">
                 <div class="container">
-                    <h3 class="w3l_head w3l_head1">{{trans('messages.Provided Services')}}</h3>
+                    <h3 class="w3l_head w3l_head1">{{trans('messages.Provided Advantages')}}</h3>
                     <hr class="custom-hr">
                     <div class="ser-bottom">
                         <div class="col-md-6 col-sm-6 agileits_banner_bottom_left">
@@ -204,7 +204,7 @@ if (in_array($locale, ['ar']))
         <!-- footer -->
         <div class="footer-top" id="contact">
             <div class="container">
-                <div class="col-md-5 w3ls-footer-top">
+                <div class="col-md-3 w3ls-footer-top">
                     <h3>{{trans('messages.Contact Us')}}</h3>
                     <ul>
                         <li>
@@ -227,7 +227,12 @@ if (in_array($locale, ['ar']))
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-7 w3ls-footer-top">
+                <div class="col-md-5 w3ls-footer-top">
+                    <video height="220" controls style="width: 100%;">
+                        <source src="{{ url('/') }}/files/img/vid.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="col-md-4 w3ls-footer-top">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d14554315.505673394!2d33.3995824!3d27.0522869!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2seg!4v1519699246385" frameborder="0" style="border:0; width: 100%; height:220px;" allowfullscreen></iframe>
                 </div>
 

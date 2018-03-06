@@ -13,7 +13,10 @@ if (in_array($locale, ['ar'])) {
 }
 ?>
 
-<h3 class="alert alert-info text-center">{{trans('declaration.Shipping Attachment')}}</h3>
+<ol class="breadcrumb">
+  <li><a href="#">{{trans('messages.Continue Shipping Details')}}</a></li>
+  <li class="active">{{trans('declaration.Shipping Attachment')}}</li>
+</ol>
 {{ BootForm::open(['name'=>'step11', 'enctype'=>'multipart/form-data', 'left_column_offset_class'=>'col-sm-offset-0']) }}
 <div class="box">
     @include('frontend.declaration.steps-bar', ['app_steps' => $app_steps])
